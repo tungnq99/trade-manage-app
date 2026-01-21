@@ -23,7 +23,6 @@
         "papaparse": "^5.4.1",
         "node-cron": "^3.0.3",
         "web-push": "^3.6.6",
-        "puppeteer": "^21.7.0",
         "date-fns": "^3.0.6"
     },
     "devDependencies": {
