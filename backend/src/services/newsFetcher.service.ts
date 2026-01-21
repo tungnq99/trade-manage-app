@@ -53,7 +53,7 @@ const fetchFromAlphaVantage = async (): Promise<any[]> => {
         });
 
         // Parse response (structure depends on actual API)
-        const events = [];
+        const events: any[] = [];
 
         // TODO: Parse actual Alpha Vantage response structure
         // For now, return empty to fallback to mock
