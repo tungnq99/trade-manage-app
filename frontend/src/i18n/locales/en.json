@@ -1,0 +1,329 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "error": "Error",
+        "save": "Save",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "search": "Search",
+        "filter": "Filter",
+        "saving": "Saving...",
+        "deleting": "Deleting...",
+        "close": "Close",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "success": "Success",
+        "warning": "Warning",
+        "info": "Info",
+        "reset": "Reset",
+        "view": "View",
+        "update": "Update"
+    },
+    "nav": {
+        "dashboard": "Dashboard",
+        "trades": "Trading Journal",
+        "analytics": "Analytics",
+        "settings": "Settings"
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "welcome": "Welcome back",
+        "performance": "Performance",
+        "performanceDescription": "Portfolio equity growth",
+        "capital": {
+            "initialBalance": "Initial Balance",
+            "currentBalance": "Current Balance",
+            "totalProfit": "Total Profit",
+            "winRate": "Win Rate"
+        },
+        "riskManagement": {
+            "title": "Risk Management",
+            "dailyLoss": "Daily Loss",
+            "maxLoss": "Max Loss",
+            "drawdown": "Drawdown",
+            "softCap": "Soft Cap",
+            "status": {
+                "optimal": "OPTIMAL",
+                "warning": "WARNING",
+                "danger": "DANGER"
+            }
+        },
+        "dailyCap": {
+            "title": "Daily Cap",
+            "target": "Target",
+            "current": "Current",
+            "remaining": "Remaining"
+        },
+        "sessionClock": {
+            "title": "Sessions"
+        },
+        "overview": {
+            "totalPL": "Total P/L",
+            "totalTrades": "Total Trades"
+        }
+    },
+    "trades": {
+        "title": "Trading Journal",
+        "subtitle": "View and manage your trading history",
+        "buttons": {
+            "close": "Close",
+            "add": "Add Trade",
+            "update": "Update Trade",
+            "delete": "Delete",
+            "filter": "Filter"
+        },
+        "form": {
+            "symbol": "Symbol",
+            "direction": "Direction",
+            "session": "Session",
+            "dateFrom": "Date From",
+            "dateTo": "Date To",
+            "clearAll": "Clear All",
+            "all": "All",
+            "asian": "Asian",
+            "london": "London",
+            "newyork": "New York"
+        },
+        "popup": {
+            "titleAdd": "Add New Trade",
+            "titleUpdate": "Update Trade",
+            "symbol": "Symbol",
+            "direction": "Direction",
+            "session": "Session",
+            "entryPrice": "Entry Price",
+            "exitPrice": "Exit Price",
+            "setup": "Setup/Strategy",
+            "notes": "Notes",
+            "entryDate": "Entry Date",
+            "exitDate": "Exit Date",
+            "entryTime": "Entry Time",
+            "exitTime": "Exit Time",
+            "lotSize": "Lot Size",
+            "takeProfit": "Take Profit",
+            "stopLoss": "Stop Loss"
+        },
+        "table": {
+            "columns": {
+                "symbol": "Symbol",
+                "entryPrice": "Entry Price",
+                "exitPrice": "Exit Price",
+                "time": "Time",
+                "pnl": "P/L",
+                "pips": "Pips",
+                "actions": "Actions",
+                "setup": "Setup"
+            }
+        },
+        "status": {
+            "long": "Long",
+            "short": "Short"
+        }
+    },
+    "settings": {
+        "title": "Settings",
+        "subtitle": "Manage your account settings and preferences",
+        "tabs": {
+            "capital": "Capital & Risk",
+            "account": "Account",
+            "display": "Display"
+        },
+        "capital": {
+            "config": {
+                "title": "Capital Configuration",
+                "description": "Set your initial trading capital. This value is used as the baseline for all performance calculations.",
+                "initialCapital": "Initial Capital",
+                "currency": "Currency",
+                "currencyNote": "Only USD is supported in this version."
+            },
+            "risk": {
+                "title": "Risk Parameters",
+                "description": "Configure your risk management limits to help you stay disciplined and protect your capital.",
+                "riskPerTrade": "Risk Per Trade",
+                "riskPerTradeDesc": "Maximum percentage of your account to risk on a single trade.",
+                "riskPerTradeUnit": "% of account balance",
+                "riskPerTradeHint": "Recommended: 1-2%",
+                "dailyLossLimit": "Daily Loss Limit",
+                "dailyLossLimitDesc": "Stop trading when daily loss reaches this limit. Resets at midnight.",
+                "dailyLossLimitUnit": "% of account balance",
+                "dailyLossLimitHint": "Prop firm typical: 5%",
+                "maxDrawdown": "Max Total Drawdown",
+                "maxDrawdownDesc": "Maximum allowed loss from your peak account balance.",
+                "maxDrawdownUnit": "% from peak balance",
+                "maxDrawdownHint": "Prop firm typical: 10%",
+                "dailyCapTarget": "Daily Profit Target",
+                "dailyCapTargetDesc": "Your daily profit target. Widget will show progress towards this goal.",
+                "dailyCapTargetHint": "Typical: $2,500",
+                "saveButton": "Save Risk Parameters",
+                "saving": "Saving...",
+                "saveSuccess": "Risk parameters updated successfully",
+                "saveError": "Failed to update risk parameters"
+            },
+            "calculator": {
+                "title": "Risk Calculator",
+                "description": "Calculate the recommended lot size for your next trade based on your risk parameters.",
+                "accountBalance": "Account Balance",
+                "symbol": "Symbol",
+                "riskPercent": "Risk per Trade (%)",
+                "entryPrice": "Entry Price",
+                "stopLoss": "Stop Loss",
+                "calculate": "Calculate Lot Size",
+                "results": "Calculation Results",
+                "riskAmount": "Risk Amount",
+                "pipsAtRisk": "Pips at Risk",
+                "lotSize": "Recommended Lot Size"
+            }
+        },
+        "account": {
+            "profile": {
+                "title": "Profile Information",
+                "description": "Update your account profile information",
+                "firstName": "First Name",
+                "lastName": "Last Name",
+                "email": "Email",
+                "saveButton": "Save Profile",
+                "saveSuccess": "Profile updated successfully"
+            },
+            "password": {
+                "title": "Change Password",
+                "description": "Update your password to keep your account secure",
+                "currentPassword": "Current Password",
+                "newPassword": "New Password",
+                "confirmPassword": "Confirm New Password",
+                "requirements": "Password must be at least 8 characters with uppercase, lowercase, and numbers",
+                "changeButton": "Change Password",
+                "changeSuccess": "Password changed successfully"
+            }
+        },
+        "display": {
+            "title": "Display Preferences",
+            "description": "Customize the look and feel of your trading dashboard.",
+            "theme": {
+                "label": "Theme",
+                "light": "Light",
+                "dark": "Dark",
+                "system": "System",
+                "description": "Choose your preferred color theme. System will match your operating system settings."
+            },
+            "language": {
+                "label": "Language",
+                "description": "Select your preferred language for the interface."
+            },
+            "dateFormat": {
+                "label": "Date Format",
+                "description": "Choose how dates are displayed throughout the application."
+            },
+            "saveButton": "Save Display Settings",
+            "saveSuccess": "Display settings saved successfully"
+        }
+    },
+    "onboarding": {
+        "step": "Step {{current}} of {{total}}",
+        "capital": {
+            "title": "Set Your Starting Capital",
+            "subtitle": "How much are you starting with?",
+            "next": "Next: Risk Setup"
+        },
+        "risk": {
+            "title": "Configure Risk Management",
+            "subtitle": "Protect your capital with smart limits",
+            "back": "Back",
+            "complete": "Complete Setup"
+        },
+        "messages": {
+            "success": "Setup complete! Welcome to Trade Manager 🎉",
+            "error": "Failed to save settings. Please try again."
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "Welcome back",
+            "subtitle": "Enter your credentials to access your account",
+            "email": "Email",
+            "password": "Password",
+            "button": "Sign In",
+            "loggingIn": "Signing in...",
+            "noAccount": "Don't have an account?",
+            "createAccount": "Create one"
+        },
+        "register": {
+            "title": "Create an account",
+            "subtitle": "Start your trading journal today",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email",
+            "password": "Password",
+            "button": "Create Account",
+            "registering": "Creating account...",
+            "haveAccount": "Already have an account?",
+            "login": "Sign in",
+            "success": "Account created successfully! Welcome aboard!",
+            "error": "Registration failed. Please try again."
+        }
+    },
+    "calendar": {
+        "title": "Trading History & Profit",
+        "weekDays": {
+            "monday": "Mon",
+            "tuesday": "Tue",
+            "wednesday": "Wed",
+            "thursday": "Thu",
+            "friday": "Fri",
+            "saturday": "Sat",
+            "sunday": "Sun"
+        },
+        "monthNames": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "summary": {
+            "totalProfit": "Total Profit",
+            "totalVolume": "Total Volume"
+        },
+        "stats": {
+            "trades": "trades",
+            "profitableDays": "profitable days",
+            "orders": "orders"
+        },
+        "navigation": {
+            "previousMonth": "Previous month",
+            "nextMonth": "Next month",
+            "month": "month",
+            "year": "year"
+        }
+    },
+    "branding": {
+        "appName": "TradeManager",
+        "version": "Version 1.0.0"
+    },
+    "popup": {
+        "deletePopup": {
+            "confirmDelete": "Confirm Delete",
+            "confirmDeleteDesc": "Are you sure you want to delete the {{symbol}} trade? This action cannot be undone.",
+            "thisActionCannotBeUndone": "This action cannot be undone.",
+            "close": "Close",
+            "back": "Back",
+            "next": "Next",
+            "previous": "Previous",
+            "success": "Success",
+            "warning": "Warning",
+            "info": "Info",
+            "reset": "Reset",
+            "view": "View",
+            "update": "Update"
+        }
+    }
+}

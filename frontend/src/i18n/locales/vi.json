@@ -1,0 +1,329 @@
+{
+    "common": {
+        "loading": "Đang tải...",
+        "error": "Lỗi",
+        "save": "Lưu",
+        "cancel": "Hủy",
+        "confirm": "Xác nhận",
+        "delete": "Xóa",
+        "edit": "Sửa",
+        "add": "Thêm",
+        "search": "Tìm kiếm",
+        "filter": "Lọc",
+        "saving": "Đang lưu...",
+        "deleting": "Đang xóa...",
+        "close": "Đóng",
+        "back": "Quay lại",
+        "next": "Tiếp theo",
+        "previous": "Trước",
+        "success": "Thành công",
+        "warning": "Cảnh báo",
+        "info": "Thông tin",
+        "reset": "Reset",
+        "view": "Xem",
+        "update": "Cập nhật"
+    },
+    "nav": {
+        "dashboard": "Bảng điều khiển",
+        "trades": "Nhật ký giao dịch",
+        "analytics": "Phân tích",
+        "settings": "Cài đặt"
+    },
+    "dashboard": {
+        "title": "Bảng điều khiển",
+        "welcome": "Chào mừng trở lại",
+        "performance": "Hiệu suất",
+        "performanceDescription": "Tăng trưởng vốn",
+        "capital": {
+            "initialBalance": "Vốn Ban Đầu",
+            "currentBalance": "Vốn Hiện Tại",
+            "totalProfit": "Tổng Lợi Nhuận",
+            "winRate": "Tỷ Lệ Thắng"
+        },
+        "riskManagement": {
+            "title": "Quản Lý Rủi Ro",
+            "dailyLoss": "Lỗ Hàng Ngày",
+            "maxLoss": "Lỗ Tối Đa",
+            "drawdown": "Drawdown",
+            "softCap": "Soft Cap",
+            "status": {
+                "optimal": "TỐI ƯU",
+                "warning": "CẢNH BÁO",
+                "danger": "NGUY HIỂM"
+            }
+        },
+        "dailyCap": {
+            "title": "Lợi nhuận ngày",
+            "target": "Mục tiêu",
+            "current": "Hiện tại",
+            "remaining": "Còn lại"
+        },
+        "sessionClock": {
+            "title": "Phiên Giao Dịch"
+        },
+        "overview": {
+            "totalPL": "Tổng Lãi/Lỗ",
+            "totalTrades": "Tổng Lệnh"
+        }
+    },
+    "trades": {
+        "title": "Nhật ký giao dịch",
+        "subtitle": "Xem và quản lý lịch sử giao dịch",
+        "buttons": {
+            "close": "Đóng",
+            "add": "Thêm Lệnh",
+            "update": "Cập Nhật",
+            "delete": "Xóa",
+            "filter": "Lọc"
+        },
+        "form": {
+            "symbol": "Cặp Tiền",
+            "direction": "Mua/Bán",
+            "session": "Phiên Giao Dịch",
+            "dateFrom": "Ngày Từ",
+            "dateTo": "Ngày Đến",
+            "clearAll": "Xóa tất cả",
+            "all": "Tất cả",
+            "asian": "Á",
+            "london": "Âu",
+            "newyork": "Mỹ"
+        },
+        "popup": {
+            "titleAdd": "Thêm Lệnh Mới",
+            "titleUpdate": "Cập Nhật Lệnh",
+            "symbol": "Cặp Tiền",
+            "direction": "Mua/Bán",
+            "session": "Phiên Giao Dịch",
+            "entryPrice": "Giá Vào",
+            "exitPrice": "Giá Ra",
+            "setup": "Chiến Lược",
+            "notes": "Ghi Chú",
+            "entryDate": "Ngày Vào",
+            "exitDate": "Ngày Ra",
+            "entryTime": "Thời Gian Vào",
+            "exitTime": "Thời Gian Ra",
+            "lotSize": "Kích Thước Lot",
+            "takeProfit": "Chốt Lợi",
+            "stopLoss": "Cắt Lỗ"
+        },
+        "table": {
+            "columns": {
+                "symbol": "Cặp Tiền",
+                "entryPrice": "Giá Vào",
+                "exitPrice": "Giá Ra",
+                "time": "Thời Gian",
+                "pnl": "Lãi/Lỗ",
+                "pips": "Pips",
+                "actions": "Hành Động",
+                "setup": "Chiến lược"
+            }
+        },
+        "status": {
+            "long": "Mua",
+            "short": "Bán"
+        }
+    },
+    "settings": {
+        "title": "Cài đặt",
+        "subtitle": "Quản lý cài đặt tài khoản và tùy chọn",
+        "tabs": {
+            "capital": "Vốn & Rủi ro",
+            "account": "Tài khoản",
+            "display": "Hiển thị"
+        },
+        "capital": {
+            "config": {
+                "title": "Cấu Hình Vốn",
+                "description": "Đặt vốn giao dịch ban đầu của bạn. Giá trị này được sử dụng làm nền tảng cho tất cả các tính toán hiệu suất.",
+                "initialCapital": "Vốn Ban Đầu",
+                "currency": "Tiền Tệ",
+                "currencyNote": "Chỉ hỗ trợ USD trong phiên bản này."
+            },
+            "risk": {
+                "title": "Tham Số Rủi Ro",
+                "description": "Cấu hình giới hạn quản lý rủi ro để giúp bạn giữ kỷ luật và bảo vệ vốn.",
+                "riskPerTrade": "Rủi Ro Mỗi Lệnh",
+                "riskPerTradeDesc": "Phần trăm tối đa của tài khoản để rủi ro trong một lệnh.",
+                "riskPerTradeUnit": "% số dư tài khoản",
+                "riskPerTradeHint": "Khuyến nghị: 1-2%",
+                "dailyLossLimit": "Giới Hạn Lỗ Hàng Ngày",
+                "dailyLossLimitDesc": "Dừng giao dịch khi lỗ hàng ngày đạt giới hạn này. Reset lúc nửa đêm.",
+                "dailyLossLimitUnit": "% số dư tài khoản",
+                "dailyLossLimitHint": "Prop firm thường: 5%",
+                "maxDrawdown": "Drawdown Tối Đa",
+                "maxDrawdownDesc": "Mức lỗ tối đa cho phép từ đỉnh tài khoản.",
+                "maxDrawdownUnit": "% từ đỉnh",
+                "maxDrawdownHint": "Prop firm thường: 10%",
+                "dailyCapTarget": "Mục Tiêu Lợi Nhuận Ngày",
+                "dailyCapTargetDesc": "Mục tiêu lợi nhuận hàng ngày của bạn. Widget sẽ hiển thị tiến độ.",
+                "dailyCapTargetHint": "Thường: $2,500",
+                "saveButton": "Lưu Tham Số Rủi Ro",
+                "saving": "Đang lưu...",
+                "saveSuccess": "Đã cập nhật tham số rủi ro thành công",
+                "saveError": "Cập nhật tham số rủi ro thất bại"
+            },
+            "calculator": {
+                "title": "Máy Tính Rủi Ro",
+                "description": "Tính toán khối lượng lệnh khuyến nghị cho giao dịch tiếp theo dựa trên tham số rủi ro.",
+                "accountBalance": "Số Dư Tài Khoản",
+                "symbol": "Cặp Tiền",
+                "riskPercent": "Rủi Ro Mỗi Lệnh (%)",
+                "entryPrice": "Giá Vào",
+                "stopLoss": "Cắt Lỗ",
+                "calculate": "Tính Khối Lượng",
+                "results": "Kết Quả Tính Toán",
+                "riskAmount": "Số Tiền Rủi Ro",
+                "pipsAtRisk": "Số Pips Rủi Ro",
+                "lotSize": "Khối Lượng Khuyến Nghị"
+            }
+        },
+        "account": {
+            "profile": {
+                "title": "Thông Tin Hồ Sơ",
+                "description": "Cập nhật thông tin hồ sơ tài khoản của bạn",
+                "firstName": "Tên",
+                "lastName": "Họ",
+                "email": "Email",
+                "saveButton": "Lưu Hồ Sơ",
+                "saveSuccess": "Đã cập nhật hồ sơ thành công"
+            },
+            "password": {
+                "title": "Đổi Mật Khẩu",
+                "description": "Cập nhật mật khẩu để bảo mật tài khoản",
+                "currentPassword": "Mật Khẩu Hiện Tại",
+                "newPassword": "Mật Khẩu Mới",
+                "confirmPassword": "Xác Nhận Mật Khẩu",
+                "requirements": "Mật khẩu phải có ít nhất 8 ký tự với chữ hoa, chữ thường và số",
+                "changeButton": "Đổi Mật Khẩu",
+                "changeSuccess": "Đã đổi mật khẩu thành công"
+            }
+        },
+        "display": {
+            "title": "Tùy Chọn Hiển Thị",
+            "description": "Tùy chỉnh giao diện bảng điều khiển giao dịch của bạn.",
+            "theme": {
+                "label": "Giao Diện",
+                "light": "Sáng",
+                "dark": "Tối",
+                "system": "Hệ Thống",
+                "description": "Chọn giao diện màu ưa thích. Hệ thống sẽ khớp với cài đặt hệ điều hành của bạn."
+            },
+            "language": {
+                "label": "Ngôn Ngữ",
+                "description": "Chọn ngôn ngữ ưa thích cho giao diện."
+            },
+            "dateFormat": {
+                "label": "Định Dạng Ngày",
+                "description": "Chọn cách hiển thị ngày trong toàn bộ ứng dụng."
+            },
+            "saveButton": "Lưu Cài Đặt Hiển Thị",
+            "saveSuccess": "Đã lưu cài đặt hiển thị"
+        }
+    },
+    "onboarding": {
+        "step": "Bước {{current}} / {{total}}",
+        "capital": {
+            "title": "Thiết Lập Vốn Ban Đầu",
+            "subtitle": "Bạn bắt đầu với bao nhiêu vốn?",
+            "next": "Tiếp: Thiết Lập Rủi Ro"
+        },
+        "risk": {
+            "title": "Cấu Hình Quản Lý Rủi Ro",
+            "subtitle": "Bảo vệ vốn của bạn với các giới hạn thông minh",
+            "back": "Quay Lại",
+            "complete": "Hoàn Thành Thiết Lập"
+        },
+        "messages": {
+            "success": "Thiết lập hoàn tất! Chào mừng đến với Trade Manager 🎉",
+            "error": "Không thể lưu cài đặt. Vui lòng thử lại."
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "Chào mừng trở lại",
+            "subtitle": "Nhập thông tin đăng nhập để truy cập tài khoản",
+            "email": "Email",
+            "password": "Mật khẩu",
+            "button": "Đăng Nhập",
+            "loggingIn": "Đang đăng nhập...",
+            "noAccount": "Chưa có tài khoản?",
+            "createAccount": "Tạo tài khoản"
+        },
+        "register": {
+            "title": "Tạo tài khoản",
+            "subtitle": "Bắt đầu nhật ký giao dịch của bạn ngay hôm nay",
+            "firstName": "Tên",
+            "lastName": "Họ",
+            "email": "Email",
+            "password": "Mật khẩu",
+            "button": "Tạo Tài Khoản",
+            "registering": "Đang tạo tài khoản...",
+            "haveAccount": "Đã có tài khoản?",
+            "login": "Đăng nhập",
+            "success": "Tạo tài khoản thành công! Chào mừng bạn!",
+            "error": "Đăng ký thất bại. Vui lòng thử lại."
+        }
+    },
+    "calendar": {
+        "title": "Lịch Sử KLGD & Lợi Nhuận",
+        "weekDays": {
+            "monday": "T2",
+            "tuesday": "T3",
+            "wednesday": "T4",
+            "thursday": "T5",
+            "friday": "T6",
+            "saturday": "T7",
+            "sunday": "CN"
+        },
+        "monthNames": [
+            "Tháng 1",
+            "Tháng 2",
+            "Tháng 3",
+            "Tháng 4",
+            "Tháng 5",
+            "Tháng 6",
+            "Tháng 7",
+            "Tháng 8",
+            "Tháng 9",
+            "Tháng 10",
+            "Tháng 11",
+            "Tháng 12"
+        ],
+        "summary": {
+            "totalProfit": "Lợi nhuận tổng",
+            "totalVolume": "Tổng KLGD"
+        },
+        "stats": {
+            "trades": "giao dịch",
+            "profitableDays": "ngày lãi",
+            "orders": "lệnh"
+        },
+        "navigation": {
+            "previousMonth": "Tháng trước",
+            "nextMonth": "Tháng sau",
+            "month": "tháng",
+            "year": "năm"
+        }
+    },
+    "branding": {
+        "appName": "TradeManager",
+        "version": "Phiên bản 1.0.0"
+    },
+    "popup": {
+        "deletePopup": {
+            "confirmDelete": "Xác nhận xóa",
+            "confirmDeleteDesc": "Bạn có chắc chắn muốn xóa lệnh {{symbol}}? Hành động này không thể hoàn tác.",
+            "thisActionCannotBeUndone": "Hành động này không thể hoàn tác.",
+            "close": "Đóng",
+            "back": "Quay lại",
+            "next": "Tiếp theo",
+            "previous": "Trước",
+            "success": "Thành công",
+            "warning": "Cảnh báo",
+            "info": "Thông tin",
+            "reset": "Reset",
+            "view": "Xem",
+            "update": "Cập nhật"
+        }
+    }
+}
