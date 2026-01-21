@@ -91,7 +91,7 @@ export function EditTradeModal({ isOpen, onClose, onTradeUpdated, trade }: EditT
                 session,
             });
 
-            toast.success('Trade updated successfully!');
+            toast.success(t('trades.messages.updateSuccess'));
             onTradeUpdated();
             onClose();
         } catch (error) {
@@ -106,7 +106,7 @@ export function EditTradeModal({ isOpen, onClose, onTradeUpdated, trade }: EditT
                 setErrors(fieldErrors);
             } else {
                 const apiError = error as { response?: { data?: { error?: string } } };
-                toast.error(apiError.response?.data?.error || 'Failed to update trade');
+                toast.error(apiError.response?.data?.error || t('trades.messages.updateError'));
             }
         } finally {
             setLoading(false);

@@ -14,7 +14,7 @@ export const AUTH_MESSAGES = {
     LOGIN_SUCCESS: (name: string) => `Welcome back, ${name}!`,
     REGISTER_SUCCESS: 'Account created successfully!',
     LOGOUT_SUCCESS: 'Logged out successfully',
-    LOGIN_FAILED: 'Login failed. Please check your credentials.',
+    LOGIN_FAILED: 'Login failed. Please check your email and password.',
     REGISTER_FAILED: 'Registration failed. Please try again.',
 } as const;
 

@@ -121,6 +121,15 @@
         "status": {
             "long": "Long",
             "short": "Short"
+        },
+        "messages": {
+            "fetchError": "Failed to fetch trades",
+            "deleteSuccess": "Trade deleted successfully!",
+            "deleteError": "Failed to delete trade",
+            "addSuccess": "Trade added successfully!",
+            "addError": "Failed to add trade",
+            "updateSuccess": "Trade updated successfully!",
+            "updateError": "Failed to update trade"
         }
     },
     "analytics": {
@@ -308,7 +317,10 @@
             "button": "Sign In",
             "loggingIn": "Signing in...",
             "noAccount": "Don't have an account?",
-            "createAccount": "Create one"
+            "createAccount": "Create one",
+            "forgotPassword": "Forgot Password?",
+            "success": "Login successful! Welcome back!",
+            "error": "Login failed. Please try again."
         },
         "register": {
             "title": "Create an account",

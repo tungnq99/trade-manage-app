@@ -10,7 +10,7 @@ import { login } from '@/services/auth.service';
 import { useAuthStore } from '@/store';
 import { TrendingUp } from 'lucide-react';
 import { loginSchema, type LoginFormData } from '@/schemas/auth.schema';
-import { APP_NAME, APP_TAGLINE, AUTH_MESSAGES } from '@/constants/app';
+import { APP_NAME, APP_TAGLINE } from '@/constants/app';
 
 export function LoginPage() {
     const { t } = useTranslation();
@@ -44,7 +44,7 @@ export function LoginPage() {
             toast.success(t('auth.login.success', { name: user.firstName }));
             navigate('/dashboard');
         } catch (err: any) {
-            const errorMessage = err.response?.data?.error || AUTH_MESSAGES.LOGIN_FAILED;
+            const errorMessage = err.response?.data?.error || t('auth.login.error');
             toast.error(errorMessage);
         }
     };

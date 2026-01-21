@@ -53,7 +53,7 @@ export function TradesPage() {
             setTotalPages(response.pagination.pages);
             setTotalItems(response.pagination.total);
         } catch (error) {
-            toast.error('Failed to fetch trades');
+            toast.error(t('trades.messages.fetchError'));
             console.error('Error fetching trades:', error);
         } finally {
             setLoading(false);
@@ -77,14 +77,14 @@ export function TradesPage() {
         try {
             setDeleting(true);
             await tradeService.deleteTrade(selectedTrade._id);
-            toast.success('Trade deleted successfully!');
+            toast.success(t('trades.messages.deleteSuccess'));
             setIsDeleteDialogOpen(false);
             setSelectedTrade(null);
             fetchTrades();
             // Invalidate capital cache to refresh Dashboard
             fetchSummary(true);
         } catch (error) {
-            toast.error('Failed to delete trade');
+            toast.error(t('trades.messages.deleteError'));
             console.error('Error deleting trade:', error);
         } finally {
             setDeleting(false);

@@ -58,7 +58,7 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
                 session,
             });
 
-            toast.success('Trade added successfully!');
+            toast.success(t('trades.messages.addSuccess'));
             onTradeAdded();
             onClose();
             // Reset form
@@ -74,7 +74,7 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
                 });
                 setErrors(fieldErrors);
             } else {
-                toast.error(error.response?.data?.error || 'Failed to add trade');
+                toast.error(t('trades.messages.addError'));
             }
         } finally {
             setLoading(false);

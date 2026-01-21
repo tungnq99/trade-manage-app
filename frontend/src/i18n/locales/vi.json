@@ -121,6 +121,15 @@
         "status": {
             "long": "Mua",
             "short": "Bán"
+        },
+        "messages": {
+            "fetchError": "Không thể tải danh sách giao dịch",
+            "deleteSuccess": "Đã xóa giao dịch thành công!",
+            "deleteError": "Xóa giao dịch thất bại",
+            "addSuccess": "Đã thêm giao dịch thành công!",
+            "addError": "Thêm giao dịch thất bại",
+            "updateSuccess": "Đã cập nhật giao dịch thành công!",
+            "updateError": "Cập nhật giao dịch thất bại"
         }
     },
     "analytics": {
@@ -308,7 +317,10 @@
             "button": "Đăng Nhập",
             "loggingIn": "Đang đăng nhập...",
             "noAccount": "Chưa có tài khoản?",
-            "createAccount": "Tạo tài khoản"
+            "createAccount": "Tạo tài khoản",
+            "forgotPassword": "Quên mật khẩu",
+            "success": "Đăng nhập thành công! Chào mừng bạn!",
+            "error": "Đăng nhập thất bại. Vui lòng thử lại."
         },
         "register": {
             "title": "Tạo tài khoản",
