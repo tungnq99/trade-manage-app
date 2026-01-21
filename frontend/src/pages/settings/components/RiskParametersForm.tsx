@@ -22,7 +22,7 @@ export const RiskParametersForm = () => {
             riskPerTrade: 1,
             dailyLossLimit: 5,
             maxDrawdown: 10,
-            dailyCapTarget: 2500,
+            dailyCapTarget: 100,
         },
     });
 
@@ -34,7 +34,7 @@ export const RiskParametersForm = () => {
                 riskPerTrade: summary.riskPerTradePercent || 1,
                 dailyLossLimit: summary.dailyLossLimit || 5,
                 maxDrawdown: summary.maxDrawdown || 10,
-                dailyCapTarget: summary.dailyCapTarget || 2500,
+                dailyCapTarget: summary.dailyCapTarget || 100,
             });
         }
     }, [summary, reset]);
@@ -196,9 +196,9 @@ export const RiskParametersForm = () => {
                         <span className="text-sm text-muted-foreground">$</span>
                         <input
                             type="number"
-                            min="100"
-                            max="10000"
-                            step="100"
+                            min="10"
+                            max={summary?.initialBalance || "10000"}
+                            step="1"
                             {...register('dailyCapTarget', { valueAsNumber: true })}
                             className="w-24 px-2 py-1 text-sm font-semibold text-blue-600 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-blue-600/50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                             disabled={isLoading}
@@ -208,17 +208,17 @@ export const RiskParametersForm = () => {
                 <input
                     id="dailyCapTarget"
                     type="range"
-                    min="100"
-                    max="10000"
-                    step="100"
+                    min="10"
+                    max={summary?.initialBalance || "10000"}
+                    step="1"
                     {...register('dailyCapTarget', { valueAsNumber: true })}
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-blue-600"
                     disabled={isLoading}
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                    <span>$100</span>
+                    <span>$10</span>
                     <span>{t('settings.capital.risk.dailyCapTargetHint')}</span>
-                    <span>$10,000</span>
+                    <span>${summary?.initialBalance || "10000"}</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
                     {t('settings.capital.risk.dailyCapTargetDesc')}
