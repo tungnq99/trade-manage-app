@@ -242,6 +242,8 @@ export function TradesPage() {
                 <Pagination
                     currentPage={page}
                     totalPages={totalPages}
+                    totalItems={totalItems}
+                    itemsPerPage={limit}
                     onPageChange={setPage}
                 />
             )}

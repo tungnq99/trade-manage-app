@@ -49,7 +49,7 @@ export const changePassword = async (data: PasswordChangeFormData) => {
     //     currentPassword: data.currentPassword,
     //     newPassword: data.newPassword,
     // });
-    // return response.data;
+    return data;
 
     // Mock response
     return {

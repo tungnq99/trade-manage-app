@@ -10,7 +10,7 @@ import { register as registerUser } from '@/services/auth.service';
 import { useAuthStore } from '@/store';
 import { TrendingUp } from 'lucide-react';
 import { registerSchema, type RegisterFormData } from '@/schemas/auth.schema';
-import { APP_NAME, APP_TAGLINE, AUTH_MESSAGES } from '@/constants/app';
+import { APP_NAME, APP_TAGLINE } from '@/constants/app';
 
 export function RegisterPage() {
     const { t } = useTranslation();

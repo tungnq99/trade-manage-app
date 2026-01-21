@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { PaginationProps } from './DataTable.types';
+import { useTranslation } from 'react-i18next';
 
 export function Pagination({
     currentPage,
@@ -9,6 +10,7 @@ export function Pagination({
     totalItems,
     itemsPerPage,
 }: PaginationProps) {
+    const { t } = useTranslation();
     const startItem = (currentPage - 1) * (itemsPerPage || 0) + 1;
     const endItem = Math.min(currentPage * (itemsPerPage || 0), totalItems || 0);
 
@@ -17,7 +19,7 @@ export function Pagination({
             <div className="text-sm text-muted-foreground">
                 {totalItems !== undefined && itemsPerPage !== undefined && (
                     <span>
-                        Showing {startItem} to {endItem} of {totalItems} results
+                        {t('pagination.showing')} {startItem} {t('pagination.to')} {endItem} {t('pagination.of')} {totalItems} {t('pagination.results')}
                     </span>
                 )}
             </div>
@@ -29,10 +31,10 @@ export function Pagination({
                     disabled={currentPage === 1}
                 >
                     <ChevronLeft className="h-4 w-4" />
-                    Previous
+                    {t('pagination.previous')}
                 </Button>
                 <div className="text-sm">
-                    Page {currentPage} of {totalPages}
+                    {t('pagination.page')} {currentPage} {t('pagination.of')} {totalPages}
                 </div>
                 <Button
                     variant="outline"
@@ -40,7 +42,7 @@ export function Pagination({
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
                 >
-                    Next
+                    {t('pagination.next')}
                     <ChevronRight className="h-4 w-4" />
                 </Button>
             </div>

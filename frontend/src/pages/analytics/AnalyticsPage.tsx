@@ -48,17 +48,17 @@ export default function AnalyticsPage() {
     }, []);
 
     const tabs = [
-        { id: 'overview', label: 'Overview', icon: BarChart3 },
-        { id: 'charts', label: 'Detailed Charts', icon: LineChart },
-        { id: 'performance', label: 'Performance Breakdown', icon: PieChart },
+        { id: 'overview', label: t('analytics.tabs.overview'), icon: BarChart3 },
+        { id: 'charts', label: t('analytics.tabs.charts'), icon: LineChart },
+        { id: 'performance', label: t('analytics.tabs.performance'), icon: PieChart },
     ];
 
     if (isLoading) {
-        return <div className="p-8 text-center">Loading analytics data...</div>;
+        return <div className="p-8 text-center">{t('analytics.loading')}</div>;
     }
 
     if (error) {
-        return <div className="p-8 text-center text-red-500">Error: {error}</div>;
+        return <div className="p-8 text-center text-red-500">{t('analytics.error')}: {error}</div>;
     }
 
     return (
@@ -66,10 +66,10 @@ export default function AnalyticsPage() {
             {/* Header */}
             <div>
                 <h1 className="text-2xl font-bold text-foreground">
-                    Analytics Dashboard
+                    {t('analytics.title')}
                 </h1>
                 <p className="text-sm text-muted-foreground">
-                    Deep dive into your trading performance and metrics.
+                    {t('analytics.subtitle')}
                 </p>
             </div>
 
@@ -104,46 +104,46 @@ export default function AnalyticsPage() {
                             {/* Win Rate Card */}
                             <div className="rounded-xl border border-border bg-card p-6">
                                 <div className="flex flex-row items-center justify-between pb-2">
-                                    <h3 className="text-sm font-medium text-muted-foreground">Win Rate</h3>
+                                    <h3 className="text-sm font-medium text-muted-foreground">{t('analytics.cards.winRate')}</h3>
                                     <BarChart3 className="h-4 w-4 text-muted-foreground" />
                                 </div>
                                 <div className="text-2xl font-bold">{stats.winRate.toFixed(1)}%</div>
                                 <p className="text-xs text-muted-foreground">
-                                    {stats.winningTrades} Wins / {stats.losingTrades} Losses
+                                    {stats.winningTrades} {t('analytics.cards.wins')} / {stats.losingTrades} {t('analytics.cards.losses')}
                                 </p>
                             </div>
 
                             {/* Profit Factor */}
                             <div className="rounded-xl border border-border bg-card p-6">
                                 <div className="flex flex-row items-center justify-between pb-2">
-                                    <h3 className="text-sm font-medium text-muted-foreground">Profit Factor</h3>
+                                    <h3 className="text-sm font-medium text-muted-foreground">{t('analytics.cards.profitFactor')}</h3>
                                     <TrendingUp className="h-4 w-4 text-muted-foreground" />
                                 </div>
                                 <div className="text-2xl font-bold">{stats.profitFactor.toFixed(2)}</div>
                                 <p className="text-xs text-muted-foreground">
-                                    Gross Profit: ${stats.grossProfit.toFixed(0)}
+                                    {t('analytics.cards.grossProfit')}: ${stats.grossProfit.toFixed(0)}
                                 </p>
                             </div>
 
                             {/* Avg Win / Loss */}
                             <div className="rounded-xl border border-border bg-card p-6">
                                 <div className="flex flex-row items-center justify-between pb-2">
-                                    <h3 className="text-sm font-medium text-muted-foreground">Avg Win / Loss</h3>
+                                    <h3 className="text-sm font-medium text-muted-foreground">{t('analytics.cards.avgWinLoss')}</h3>
                                     <Layers className="h-4 w-4 text-muted-foreground" />
                                 </div>
-                                <div className="text-sm font-medium text-green-500">Win: ${stats.averageWin.toFixed(2)}</div>
-                                <div className="text-sm font-medium text-red-500">Loss: ${Math.abs(stats.averageLoss).toFixed(2)}</div>
+                                <div className="text-sm font-medium text-green-500">{t('analytics.cards.win')}: ${stats.averageWin.toFixed(2)}</div>
+                                <div className="text-sm font-medium text-red-500">{t('analytics.cards.loss')}: ${Math.abs(stats.averageLoss).toFixed(2)}</div>
                             </div>
 
                             {/* Expectancy */}
                             <div className="rounded-xl border border-border bg-card p-6">
                                 <div className="flex flex-row items-center justify-between pb-2">
-                                    <h3 className="text-sm font-medium text-muted-foreground">Expectancy</h3>
+                                    <h3 className="text-sm font-medium text-muted-foreground">{t('analytics.cards.expectancy')}</h3>
                                     <BarChart3 className="h-4 w-4 text-muted-foreground" />
                                 </div>
                                 <div className="text-2xl font-bold">${stats.expectancy.toFixed(2)}</div>
                                 <p className="text-xs text-muted-foreground">
-                                    Per trade
+                                    {t('analytics.cards.perTrade')}
                                 </p>
                             </div>
                         </div>
@@ -160,12 +160,12 @@ export default function AnalyticsPage() {
                     <div className="space-y-6">
                         <div className="grid gap-6 md:grid-cols-2">
                             <BreakdownChart
-                                title="Trade Distribution by Symbol"
+                                title={t('analytics.breakdown.bySymbol')}
                                 data={symbolBreakdown}
                                 type="symbol"
                             />
                             <BreakdownChart
-                                title="Trade Distribution by Session"
+                                title={t('analytics.breakdown.bySession')}
                                 data={sessionBreakdown}
                                 type="session"
                             />

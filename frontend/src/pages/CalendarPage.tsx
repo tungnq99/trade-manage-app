@@ -17,7 +17,7 @@ export default function CalendarPage() {
     const [events, setEvents] = useState<EconomicEvent[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [impactFilter, setImpactFilter] = useState<ImpactFilter>('All');
-    const [selectedCurrencies, setSelectedCurrencies] = useState<string[]>(['USD', 'EUR', 'GBP', 'JPY']);
+    const [selectedCurrencies] = useState<string[]>(['USD', 'EUR', 'GBP', 'JPY']);
 
     useEffect(() => {
         fetchEvents();
@@ -67,10 +67,10 @@ export default function CalendarPage() {
             <div>
                 <h1 className="text-2xl font-bold text-foreground flex items-center gap-2">
                     <CalendarIcon className="h-6 w-6" />
-                    Economic Calendar
+                    {t('calendar.title')}
                 </h1>
                 <p className="text-sm text-muted-foreground">
-                    High-impact economic events that may affect the market
+                    {t('calendar.subtitle')}
                 </p>
             </div>
 
@@ -79,7 +79,7 @@ export default function CalendarPage() {
                 {/* Impact Filter */}
                 <div className="flex items-center gap-2">
                     <Filter className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">Impact:</span>
+                    <span className="text-sm font-medium">{t('calendar.filters.impact')}:</span>
                     {(['All', 'High', 'Medium', 'Low'] as ImpactFilter[]).map((filter) => (
                         <button
                             key={filter}
@@ -91,7 +91,7 @@ export default function CalendarPage() {
                                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
                             )}
                         >
-                            {filter}
+                            {t(`calendar.filters.${filter.toLowerCase()}`)}
                         </button>
                     ))}
                 </div>
@@ -102,9 +102,9 @@ export default function CalendarPage() {
                 {events.length === 0 ? (
                     <div className="p-12 text-center">
                         <TrendingUp className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                        <h3 className="text-lg font-semibold mb-2">No Events This Week</h3>
+                        <h3 className="text-lg font-semibold mb-2">{t('calendar.empty.title')}</h3>
                         <p className="text-sm text-muted-foreground">
-                            Enjoy a quiet week! No major economic events scheduled.
+                            {t('calendar.empty.message')}
                         </p>
                     </div>
                 ) : (
@@ -112,12 +112,12 @@ export default function CalendarPage() {
                         <table className="w-full">
                             <thead className="border-b border-border bg-muted/50">
                                 <tr>
-                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">Date/Time</th>
-                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">Currency</th>
-                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">Event</th>
-                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">Impact</th>
-                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">Forecast</th>
-                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">Previous</th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">{t('calendar.table.dateTime')}</th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">{t('calendar.table.currency')}</th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">{t('calendar.table.event')}</th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">{t('calendar.table.impact')}</th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">{t('calendar.table.forecast')}</th>
+                                    <th className="px-4 py-3 text-left text-xs font-semibold text-muted-foreground">{t('calendar.table.previous')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
@@ -132,7 +132,7 @@ export default function CalendarPage() {
                                         <td className="px-4 py-3 text-sm font-medium">{event.event}</td>
                                         <td className="px-4 py-3">
                                             <span className={cn('text-xs font-semibold', IMPACT_COLORS[event.impact])}>
-                                                {event.impact}
+                                                {t(`calendar.filters.${event.impact.toLowerCase()}`)}
                                             </span>
                                         </td>
                                         <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -152,8 +152,7 @@ export default function CalendarPage() {
             {/* Disclaimer */}
             <div className="rounded-lg border border-yellow-500/20 bg-yellow-500/10 p-4">
                 <p className="text-xs text-yellow-700 dark:text-yellow-300">
-                    ⚠️ <strong>Disclaimer:</strong> Economic data is provided for informational purposes only.
-                    Please verify with official sources before making trading decisions.
+                    ⚠️ <strong>{t('calendar.disclaimerLabel')}:</strong> {t('calendar.disclaimer')}
                 </p>
             </div>
         </div>

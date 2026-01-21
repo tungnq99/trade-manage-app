@@ -123,6 +123,67 @@
             "short": "Short"
         }
     },
+    "analytics": {
+        "title": "Analytics Dashboard",
+        "subtitle": "Deep dive into your trading performance and metrics.",
+        "loading": "Loading analytics data...",
+        "error": "Error",
+        "tabs": {
+            "overview": "Overview",
+            "charts": "Detailed Charts",
+            "performance": "Performance Breakdown"
+        },
+        "cards": {
+            "winRate": "Win Rate",
+            "wins": "Wins",
+            "losses": "Losses",
+            "profitFactor": "Profit Factor",
+            "grossProfit": "Gross Profit",
+            "avgWinLoss": "Avg Win / Loss",
+            "win": "Win",
+            "loss": "Loss",
+            "expectancy": "Expectancy",
+            "perTrade": "Per trade"
+        },
+        "breakdown": {
+            "bySymbol": "Trade Distribution by Symbol",
+            "bySession": "Trade Distribution by Session"
+        }
+    },
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page",
+        "of": "of",
+        "showing": "Showing",
+        "to": "to",
+        "results": "results"
+    },
+    "calendar": {
+        "title": "Economic Calendar",
+        "subtitle": "High-impact economic events that may affect the market",
+        "filters": {
+            "impact": "Impact",
+            "all": "All",
+            "high": "High",
+            "medium": "Medium",
+            "low": "Low"
+        },
+        "table": {
+            "dateTime": "Date/Time",
+            "currency": "Currency",
+            "event": "Event",
+            "impact": "Impact",
+            "forecast": "Forecast",
+            "previous": "Previous"
+        },
+        "empty": {
+            "title": "No Events This Week",
+            "message": "Enjoy a quiet week! No major economic events scheduled."
+        },
+        "disclaimer": "Economic data is provided for informational purposes only. Please verify with official sources before making trading decisions.",
+        "disclaimerLabel": "Disclaimer"
+    },
     "settings": {
         "title": "Settings",
         "subtitle": "Manage your account settings and preferences",

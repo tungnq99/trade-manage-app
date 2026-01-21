@@ -73,7 +73,7 @@ const CapitalStep = ({ onNext }: { onNext: (data: OnboardingCapitalFormData) => 
                                 <p className="text-sm text-destructive">{errors.initialBalance.message}</p>
                             )}
                             <p className="text-xs text-muted-foreground">
-                                This will be your starting balance for tracking performance.
+                                {t('settings.capital.config.initialCapitalDesc')}
                             </p>
                         </div>
 
@@ -94,17 +94,18 @@ const RiskStep = ({
     onComplete,
 }: {
     onBack: () => void;
-    onComplete: (data: { riskPerTrade: number; dailyLossLimit: number; maxDrawdown: number }) => void;
+    onComplete: (data: { riskPerTrade: number; dailyLossLimit: number; maxDrawdown: number; dailyCapTarget: number }) => void;
 }) => {
     const { t } = useTranslation();
     const [riskPerTrade, setRiskPerTrade] = useState(1);
     const [dailyLossLimit, setDailyLossLimit] = useState(5);
     const [maxDrawdown, setMaxDrawdown] = useState(10);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [dailyCapTarget, setDailyCapTarget] = useState(100);
 
     const handleSubmit = async () => {
         setIsSubmitting(true);
-        onComplete({ riskPerTrade, dailyLossLimit, maxDrawdown });
+        onComplete({ riskPerTrade, dailyLossLimit, maxDrawdown, dailyCapTarget });
     };
 
     return (
@@ -190,6 +191,28 @@ const RiskStep = ({
                         </p>
                     </div>
 
+                    {/* Daily Cap Target */}
+                    <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                            <Label>{t('settings.capital.risk.dailyCapTarget')}</Label>
+                            <span className="text-lg font-semibold text-primary">
+                                {dailyCapTarget.toFixed(1)}
+                            </span>
+                        </div>
+                        <input
+                            type="range"
+                            min="10"
+                            max="10000"
+                            step="1"
+                            value={dailyCapTarget}
+                            onChange={(e) => setDailyCapTarget(parseFloat(e.target.value))}
+                            className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                        />
+                        <p className="text-xs text-muted-foreground">
+                            {t('settings.capital.risk.dailyCapTargetDesc')}
+                        </p>
+                    </div>
+
                     {/* Buttons */}
                     <div className="flex gap-3">
                         <Button
@@ -231,17 +254,18 @@ const OnboardingPage = () => {
         setCurrentStep(2);
     };
 
-    const handleRiskComplete = async (riskData: { riskPerTrade: number; dailyLossLimit: number; maxDrawdown: number }) => {
+    const handleRiskComplete = async (riskData: { riskPerTrade: number; dailyLossLimit: number; maxDrawdown: number; dailyCapTarget: number }) => {
         if (!capitalData) return;
 
         try {
-            await updateSettings(
-                capitalData.initialBalance,
-                DEFAULT_CURRENCY,
-                riskData.riskPerTrade,
-                riskData.dailyLossLimit,
-                riskData.maxDrawdown
-            );
+            await updateSettings({
+                initialBalance: capitalData.initialBalance,
+                currency: DEFAULT_CURRENCY,
+                riskPerTradePercent: riskData.riskPerTrade,
+                dailyLossLimit: riskData.dailyLossLimit,
+                maxDrawdown: riskData.maxDrawdown,
+                dailyCapTarget: riskData.dailyCapTarget,
+            });
 
             // Mark onboarding as completed
             const { user, token, setAuth } = useAuthStore.getState();

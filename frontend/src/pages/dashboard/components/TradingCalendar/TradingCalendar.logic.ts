@@ -1,6 +1,6 @@
 import { Trade, DayData, CalendarSummary } from './TradingCalendar.types';
 import { WEEK_DAYS_KEYS, DAYS_IN_WEEK } from '@/constants/calendar';
-import { formatDateKey, getMonthBoundaries, type MonthBoundaries } from '@/utils/date';
+import { formatDateKey, getMonthBoundaries } from '@/utils/date';
 
 /**
  * Constants (Component-specific)

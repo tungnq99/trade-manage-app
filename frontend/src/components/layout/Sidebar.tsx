@@ -4,10 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
     LayoutDashboard,
     BookOpen,
-    Shield,
     TrendingUp,
-    Newspaper,
-    Bell,
     Settings,
     Menu,
     X,

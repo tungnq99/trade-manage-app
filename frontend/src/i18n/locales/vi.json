@@ -123,6 +123,67 @@
             "short": "Bán"
         }
     },
+    "analytics": {
+        "title": "Bảng Phân Tích",
+        "subtitle": "Phân tích chi tiết hiệu suất giao dịch và các chỉ số.",
+        "loading": "Đang tải dữ liệu phân tích...",
+        "error": "Lỗi",
+        "tabs": {
+            "overview": "Tổng quan",
+            "charts": "Biểu đồ Chi tiết",
+            "performance": "Phân tích Hiệu suất"
+        },
+        "cards": {
+            "winRate": "Tỷ lệ Thắng",
+            "wins": "Thắng",
+            "losses": "Thua",
+            "profitFactor": "Hệ số Lợi nhuận",
+            "grossProfit": "Lợi nhuận Gộp",
+            "avgWinLoss": "Trung bình Thắng/Thua",
+            "win": "Thắng",
+            "loss": "Thua",
+            "expectancy": "Kỳ vọng",
+            "perTrade": "Mỗi lệnh"
+        },
+        "breakdown": {
+            "bySymbol": "Phân bố theo Cặp tiền",
+            "bySession": "Phân bố theo Phiên"
+        }
+    },
+    "pagination": {
+        "previous": "Trước",
+        "next": "Tiếp",
+        "page": "Trang",
+        "of": "của",
+        "showing": "Hiển thị",
+        "to": "đến",
+        "results": "kết quả"
+    },
+    "calendar": {
+        "title": "Lịch Kinh tế",
+        "subtitle": "Sự kiện kinh tế có tác động lớn đến thị trường",
+        "filters": {
+            "impact": "Tác động",
+            "all": "Tất cả",
+            "high": "Cao",
+            "medium": "Trung bình",
+            "low": "Thấp"
+        },
+        "table": {
+            "dateTime": "Ngày/Giờ",
+            "currency": "Tiền tệ",
+            "event": "Sự kiện",
+            "impact": "Tác động",
+            "forecast": "Dự báo",
+            "previous": "Trước đó"
+        },
+        "empty": {
+            "title": "Không có Sự kiện Tuần này",
+            "message": "Hưởng một tuần yên tĩnh! Không có sự kiện kinh tế lớn nào được lên lịch."
+        },
+        "disclaimer": "Dữ liệu kinh tế chỉ mang tính chất tham khảo. Vui lòng xác minh với các nguồn chính thức trước khi đưa ra quyết định giao dịch.",
+        "disclaimerLabel": "Lưu ý"
+    },
     "settings": {
         "title": "Cài đặt",
         "subtitle": "Quản lý cài đặt tài khoản và tùy chọn",

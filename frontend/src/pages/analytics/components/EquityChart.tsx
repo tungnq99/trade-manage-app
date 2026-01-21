@@ -84,7 +84,7 @@ export function EquityChart({
                             width={50}
                         />
                         <Tooltip
-                            content={({ active, payload, label }) => {
+                            content={({ active, payload }) => {
                                 if (active && payload && payload.length) {
                                     return (
                                         <div className="rounded-lg border border-border bg-background p-2 shadow-sm">
