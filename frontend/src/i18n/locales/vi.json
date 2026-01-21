@@ -226,7 +226,7 @@
                 "maxDrawdownHint": "Prop firm thường: 10%",
                 "dailyCapTarget": "Mục Tiêu Lợi Nhuận Ngày",
                 "dailyCapTargetDesc": "Mục tiêu lợi nhuận hàng ngày của bạn. Widget sẽ hiển thị tiến độ.",
-                "dailyCapTargetHint": "Thường: $2,500",
+                "dailyCapTargetHint": "Thường: $ {{initialCapital}}",
                 "saveButton": "Lưu Tham Số Rủi Ro",
                 "saving": "Đang lưu...",
                 "saveSuccess": "Đã cập nhật tham số rủi ro thành công",

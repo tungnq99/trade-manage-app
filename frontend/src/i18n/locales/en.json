@@ -226,7 +226,7 @@
                 "maxDrawdownHint": "Prop firm typical: 10%",
                 "dailyCapTarget": "Daily Profit Target",
                 "dailyCapTargetDesc": "Your daily profit target. Widget will show progress towards this goal.",
-                "dailyCapTargetHint": "Typical: $2,500",
+                "dailyCapTargetHint": "Typical: $ {{initialCapital}}",
                 "saveButton": "Save Risk Parameters",
                 "saving": "Saving...",
                 "saveSuccess": "Risk parameters updated successfully",

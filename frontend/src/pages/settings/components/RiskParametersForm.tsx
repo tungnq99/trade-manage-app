@@ -16,13 +16,15 @@ export const RiskParametersForm = () => {
         register,
         handleSubmit,
         reset,
+        watch,
+        setValue,
     } = useForm<RiskParametersFormData>({
         resolver: zodResolver(riskParametersSchema),
         defaultValues: {
             riskPerTrade: 1,
             dailyLossLimit: 5,
             maxDrawdown: 10,
-            dailyCapTarget: 100,
+            dailyCapTarget: 10,
         },
     });
 
@@ -34,10 +36,16 @@ export const RiskParametersForm = () => {
                 riskPerTrade: summary.riskPerTradePercent || 1,
                 dailyLossLimit: summary.dailyLossLimit || 5,
                 maxDrawdown: summary.maxDrawdown || 10,
-                dailyCapTarget: summary.dailyCapTarget || 100,
+                dailyCapTarget: summary.dailyCapTarget || 10,
             });
         }
     }, [summary, reset]);
+
+    // Watch all form values to sync with range sliders
+    const riskPerTrade = watch('riskPerTrade');
+    const dailyLossLimit = watch('dailyLossLimit');
+    const maxDrawdown = watch('maxDrawdown');
+    const dailyCapTarget = watch('dailyCapTarget');
 
     const onSubmit = async (data: RiskParametersFormData) => {
         try {
@@ -85,7 +93,8 @@ export const RiskParametersForm = () => {
                     min="0.1"
                     max="5"
                     step="0.1"
-                    {...register('riskPerTrade', { valueAsNumber: true })}
+                    value={riskPerTrade}
+                    onChange={(e) => setValue('riskPerTrade', parseFloat(e.target.value), { shouldValidate: true })}
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
                     disabled={isLoading}
                 />
@@ -127,7 +136,8 @@ export const RiskParametersForm = () => {
                     min="1"
                     max="20"
                     step="0.5"
-                    {...register('dailyLossLimit', { valueAsNumber: true })}
+                    value={dailyLossLimit}
+                    onChange={(e) => setValue('dailyLossLimit', parseFloat(e.target.value), { shouldValidate: true })}
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-orange-600"
                     disabled={isLoading}
                 />
@@ -169,7 +179,8 @@ export const RiskParametersForm = () => {
                     min="5"
                     max="50"
                     step="1"
-                    {...register('maxDrawdown', { valueAsNumber: true })}
+                    value={maxDrawdown}
+                    onChange={(e) => setValue('maxDrawdown', parseFloat(e.target.value), { shouldValidate: true })}
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-red-600"
                     disabled={isLoading}
                 />
@@ -209,15 +220,16 @@ export const RiskParametersForm = () => {
                     id="dailyCapTarget"
                     type="range"
                     min="10"
-                    max={summary?.initialBalance || "10000"}
+                    max={summary?.initialBalance || 10000}
                     step="1"
-                    {...register('dailyCapTarget', { valueAsNumber: true })}
+                    value={dailyCapTarget}
+                    onChange={(e) => setValue('dailyCapTarget', parseFloat(e.target.value), { shouldValidate: true })}
                     className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-blue-600"
                     disabled={isLoading}
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
                     <span>$10</span>
-                    <span>{t('settings.capital.risk.dailyCapTargetHint')}</span>
+                    <span>{t('settings.capital.risk.dailyCapTargetHint', { initialCapital: Number(summary?.initialBalance) / 2 || 10000 / 2 })}</span>
                     <span>${summary?.initialBalance || "10000"}</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
