@@ -29,5 +29,5 @@ export const STANDARD_PIP_VALUE = 10;
  * Pip size calculation
  */
 export const getPipSize = (symbol: string): number => {
-    return symbol.includes('JPY') ? 0.01 : 0.0001;
+    return symbol.includes('XAU') ? 0.1 : symbol.includes('JPY') ? 0.01 : 0.0001;
 };
