@@ -41,16 +41,24 @@ router.post('/register', async (req: Request, res: Response) => {
         const user = new User(validatedData);
         await user.save();
 
-        // Generate JWT token
-        const token = jwt.sign(
+        // Generate access token (short-lived)
+        const accessToken = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET || 'default-secret',
-            { expiresIn: '7d' }
+            { expiresIn: '15m' } // 15 minutes
+        );
+
+        // Generate refresh token (long-lived)
+        const refreshToken = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET || 'default-refresh-secret',
+            { expiresIn: '7d' } // 7 days
         );
 
         res.status(201).json({
             message: 'Registration successful',
-            token,
+            accessToken,
+            refreshToken,
             user: {
                 id: user._id,
                 email: user.email,
@@ -94,16 +102,24 @@ router.post('/login', async (req: Request, res: Response) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        // Generate JWT token
-        const token = jwt.sign(
+        // Generate access token (short-lived)
+        const accessToken = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET || 'default-secret',
-            { expiresIn: '7d' }
+            { expiresIn: '15m' } // 15 minutes
+        );
+
+        // Generate refresh token (long-lived)
+        const refreshToken = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET || 'default-refresh-secret',
+            { expiresIn: '7d' } // 7 days
         );
 
         res.json({
             message: 'Login successful',
-            token,
+            accessToken,
+            refreshToken,
             user: {
                 id: user._id,
                 email: user.email,
@@ -156,6 +172,54 @@ router.get('/me', async (req: Request, res: Response) => {
         });
     } catch (error) {
         res.status(401).json({ error: 'Invalid token' });
+    }
+});
+
+/**
+ * POST /api/auth/refresh
+ * Refresh access token using refresh token
+ */
+router.post('/refresh', async (req: Request, res: Response) => {
+    try {
+        const { refreshToken } = req.body;
+
+        if (!refreshToken) {
+            return res.status(401).json({ error: 'Refresh token required' });
+        }
+
+        // Verify refresh token
+        const decoded = jwt.verify(
+            refreshToken,
+            process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET || 'default-refresh-secret'
+        ) as { userId: string };
+
+        // Get user to ensure they still exist
+        const user = await User.findById(decoded.userId);
+        if (!user) {
+            return res.status(401).json({ error: 'User not found' });
+        }
+
+        // Generate new access token
+        const accessToken = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET || 'default-secret',
+            { expiresIn: '15m' }
+        );
+
+        // Optionally rotate refresh token (generate new one)
+        const newRefreshToken = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET || 'default-refresh-secret',
+            { expiresIn: '7d' }
+        );
+
+        res.json({
+            accessToken,
+            refreshToken: newRefreshToken,
+        });
+    } catch (error) {
+        console.error('Refresh token error:', error);
+        res.status(401).json({ error: 'Invalid or expired refresh token' });
     }
 });
 

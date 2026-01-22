@@ -19,8 +19,9 @@ interface LoginData {
 }
 
 interface AuthResponse {
-    token: string;
+    accessToken: string;
     user: User;
+    refreshToken: string;
     message?: string;
 }
 
@@ -46,6 +47,17 @@ export const login = async (data: LoginData): Promise<AuthResponse> => {
 export const getCurrentUser = async (): Promise<User> => {
     const response = await apiClient.get<{ user: User }>('/api/auth/me');
     return response.data.user;
+};
+
+/**
+ * Refresh access token
+ */
+export const refreshAccessToken = async (refreshToken: string): Promise<{ accessToken: string; refreshToken: string }> => {
+    const response = await apiClient.post<{ accessToken: string; refreshToken: string }>(
+        '/api/auth/refresh',
+        { refreshToken }
+    );
+    return response.data;
 };
 
 /**

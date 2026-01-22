@@ -31,7 +31,7 @@ export function LoginPage() {
 
     const onSubmit = async (data: LoginFormData) => {
         try {
-            const { token, user } = await login(data);
+            const { accessToken, refreshToken, user } = await login(data);
 
             // Existing users logging in should have completed onboarding
             // Backend will eventually provide this field, for now we default to true
@@ -40,7 +40,7 @@ export function LoginPage() {
                 hasCompletedOnboarding: user.hasCompletedOnboarding ?? true, // Default true for existing users
             };
 
-            setAuth(token, userWithOnboarding);
+            setAuth(accessToken, refreshToken, userWithOnboarding);
             toast.success(t('auth.login.success', { name: user.firstName }));
             navigate('/dashboard');
         } catch (err: any) {

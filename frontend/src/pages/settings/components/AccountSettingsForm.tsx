@@ -16,7 +16,7 @@ import {
 
 export const AccountSettingsForm = () => {
     const { t } = useTranslation();
-    const { user, setAuth } = useAuthStore();
+    const { user, setAuth, token, refreshToken } = useAuthStore();
 
     // Profile Form
     const {
@@ -51,7 +51,7 @@ export const AccountSettingsForm = () => {
         try {
             const response = await updateProfile(data);
             // Update auth store with new user data
-            setAuth(useAuthStore.getState().token || '', response.user);
+            setAuth(token || '', refreshToken || '', response.user);
             toast.success(t('settings.account.profile.saveSuccess'));
         } catch (error: any) {
             const errorMessage = error.response?.data?.error || 'Failed to update profile';

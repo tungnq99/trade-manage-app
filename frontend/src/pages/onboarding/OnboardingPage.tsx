@@ -268,9 +268,9 @@ const OnboardingPage = () => {
             });
 
             // Mark onboarding as completed
-            const { user, token, setAuth } = useAuthStore.getState();
+            const { user, token, setAuth, refreshToken } = useAuthStore.getState();
             if (user) {
-                setAuth(token || '', { ...user, hasCompletedOnboarding: true });
+                setAuth(token || '', refreshToken || '', { ...user, hasCompletedOnboarding: true });
             }
 
             toast.success(t('onboarding.messages.success'));

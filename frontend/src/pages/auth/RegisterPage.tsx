@@ -33,7 +33,7 @@ export function RegisterPage() {
 
     const onSubmit = async (data: RegisterFormData) => {
         try {
-            const { token, user } = await registerUser(data);
+            const { accessToken, refreshToken, user } = await registerUser(data);
 
             // New users need to complete onboarding
             const userWithOnboarding = {
@@ -41,7 +41,7 @@ export function RegisterPage() {
                 hasCompletedOnboarding: false,
             };
 
-            setAuth(token, userWithOnboarding);
+            setAuth(accessToken, refreshToken, userWithOnboarding);
             toast.success(t('auth.register.success'));
             navigate('/onboarding');
         } catch (err: any) {
