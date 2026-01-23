@@ -117,11 +117,31 @@ export const AccountSettingsForm = () => {
                             id="email"
                             type="email"
                             {...registerProfile('email')}
-                            disabled={isSubmittingProfile}
+                            disabled={true}
                         />
                         {profileErrors.email && (
                             <p className="text-xs text-destructive">{profileErrors.email.message}</p>
                         )}
+                    </div>
+
+                    {/* Role Display (Read-only) */}
+                    <div className="space-y-2">
+                        <Label>Role</Label>
+                        <div className="flex items-center gap-2">
+                            <div
+                                className={`px-3 py-1.5 rounded-md text-sm font-medium border ${user?.role === 'admin'
+                                    ? 'bg-primary/10 text-primary border-primary/20'
+                                    : 'bg-muted text-muted-foreground border-border'
+                                    }`}
+                            >
+                                {user?.role === 'admin' ? '👑 Admin' : '👤 User'}
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                                {user?.role === 'admin'
+                                    ? 'Full access to all features'
+                                    : 'Standard user access'}
+                            </p>
+                        </div>
                     </div>
 
                     <Button type="submit" disabled={isSubmittingProfile}>

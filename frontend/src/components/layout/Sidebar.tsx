@@ -8,6 +8,7 @@ import {
     Settings,
     Menu,
     X,
+    BookMarked,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -22,6 +23,7 @@ export function Sidebar() {
         { href: '/dashboard', label: t('nav.dashboard'), icon: LayoutDashboard },
         { href: '/trades', label: t('nav.trades'), icon: BookOpen },
         { href: '/analytics', label: t('nav.analytics'), icon: TrendingUp },
+        { href: '/strategies', label: 'Chiến Lược', icon: BookMarked },
         { href: '/settings', label: t('nav.settings'), icon: Settings },
     ];
 

@@ -12,6 +12,7 @@ import SettingsPage from '@/pages/settings/SettingsPage';
 import AnalyticsPage from '@/pages/analytics/AnalyticsPage';
 import CalendarPage from '@/pages/CalendarPage';
 import OnboardingPage from '@/pages/onboarding/OnboardingPage';
+import StrategiesPage from '@/pages/strategies/StrategiesPage';
 import { useThemeStore, initializeTheme } from '@/store/themeStore';
 import i18n from './i18n';
 
@@ -40,6 +41,7 @@ function App() {
                             <Route path="/dashboard" element={<DashboardPage />} />
                             <Route path="/trades" element={<TradesPage />} />
                             <Route path="/analytics" element={<AnalyticsPage />} />
+                            <Route path="/strategies" element={<StrategiesPage />} />
                             <Route path="/news" element={<CalendarPage />} />
                             <Route path="/alerts" element={<div className="p-6"><h1 className="text-2xl font-bold text-foreground">Alerts</h1><p className="text-foreground-secondary">Sprint 5</p></div>} />
                             <Route path="/settings" element={<SettingsPage />} />

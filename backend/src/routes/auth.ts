@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { User } from '../models/User';
 
@@ -37,20 +38,27 @@ router.post('/register', async (req: Request, res: Response) => {
             return res.status(400).json({ error: 'Email already registered' });
         }
 
+        // First user is admin, others are regular users
+        const userCount = await User.countDocuments();
+        const role = userCount === 0 ? 'admin' : 'user';
+
         // Tạo user mới
-        const user = new User(validatedData);
+        const user = new User({
+            ...validatedData,
+            role,
+        });
         await user.save();
 
-        // Generate access token (short-lived)
+        // Generate access token (short-lived) with role
         const accessToken = jwt.sign(
-            { userId: user._id },
+            { userId: user._id, email: user.email, role: user.role },
             process.env.JWT_SECRET || 'default-secret',
             { expiresIn: '15m' } // 15 minutes
         );
 
-        // Generate refresh token (long-lived)
+        // Generate refresh token (long-lived) with role
         const refreshToken = jwt.sign(
-            { userId: user._id },
+            { userId: user._id, email: user.email, role: user.role },
             process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET || 'default-refresh-secret',
             { expiresIn: '7d' } // 7 days
         );
@@ -64,6 +72,7 @@ router.post('/register', async (req: Request, res: Response) => {
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                role: user.role,
                 createdAt: user.createdAt,
             },
         });
@@ -102,16 +111,16 @@ router.post('/login', async (req: Request, res: Response) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        // Generate access token (short-lived)
+        // Generate access token (short-lived) with role
         const accessToken = jwt.sign(
-            { userId: user._id },
+            { userId: user._id, email: user.email, role: user.role },
             process.env.JWT_SECRET || 'default-secret',
             { expiresIn: '15m' } // 15 minutes
         );
 
-        // Generate refresh token (long-lived)
+        // Generate refresh token (long-lived) with role
         const refreshToken = jwt.sign(
-            { userId: user._id },
+            { userId: user._id, email: user.email, role: user.role },
             process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET || 'default-refresh-secret',
             { expiresIn: '7d' } // 7 days
         );
@@ -125,6 +134,7 @@ router.post('/login', async (req: Request, res: Response) => {
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                role: user.role,
                 createdAt: user.createdAt,
             },
         });
@@ -153,7 +163,7 @@ router.get('/me', async (req: Request, res: Response) => {
         const decoded = jwt.verify(
             token,
             process.env.JWT_SECRET || 'default-secret'
-        ) as { userId: string };
+        ) as { userId: string; email: string; role: string };
 
         // Get user
         const user = await User.findById(decoded.userId);
@@ -167,6 +177,7 @@ router.get('/me', async (req: Request, res: Response) => {
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                role: user.role,
                 createdAt: user.createdAt,
             },
         });
@@ -174,6 +185,134 @@ router.get('/me', async (req: Request, res: Response) => {
         res.status(401).json({ error: 'Invalid token' });
     }
 });
+
+/**
+ * PUT /api/auth/profile
+ * Update user profile (firstName, lastName, email)
+ */
+router.put('/profile', async (req: Request, res: Response) => {
+    try {
+        // Get token from header
+        const token = req.headers.authorization?.replace('Bearer ', '');
+        if (!token) {
+            return res.status(401).json({ error: 'No token provided' });
+        }
+
+        // Verify token
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET || 'default-secret'
+        ) as { userId: string; email: string; role: string };
+
+        // Validate input
+        const updateSchema = z.object({
+            firstName: z.string().min(1, 'First name is required').optional(),
+            lastName: z.string().min(1, 'Last name is required').optional(),
+            email: z.string().email('Invalid email format').optional(),
+        });
+
+        const validatedData = updateSchema.parse(req.body);
+
+        // Check if email is being changed and if it's already taken
+        if (validatedData.email && validatedData.email !== decoded.email) {
+            const existingUser = await User.findOne({ email: validatedData.email });
+            if (existingUser) {
+                return res.status(400).json({ error: 'Email already in use' });
+            }
+        }
+
+        // Update user
+        const user = await User.findByIdAndUpdate(
+            decoded.userId,
+            { $set: validatedData },
+            { new: true, runValidators: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({
+            message: 'Profile updated successfully',
+            user: {
+                id: user._id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                role: user.role,
+                createdAt: user.createdAt,
+            },
+        });
+    } catch (error: any) {
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({ error: error.errors[0].message });
+        }
+        console.error('Update profile error:', error);
+        res.status(500).json({ error: 'Failed to update profile' });
+    }
+});
+
+/**
+ * POST /api/auth/change-password
+ * Change user password
+ */
+router.post('/change-password', async (req: Request, res: Response) => {
+    try {
+        // Get token from header
+        const token = req.headers.authorization?.replace('Bearer ', '');
+        if (!token) {
+            return res.status(401).json({ error: 'No token provided' });
+        }
+
+        // Verify token
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET || 'default-secret'
+        ) as { userId: string; email: string; role: string };
+
+        // Validate input
+        const changePasswordSchema = z.object({
+            currentPassword: z.string().min(1, 'Current password is required'),
+            newPassword: z.string().min(6, 'New password must be at least 6 characters'),
+        });
+
+        const validatedData = changePasswordSchema.parse(req.body);
+
+        // Get user from database
+        const user = await User.findById(decoded.userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Verify current password
+        const isPasswordValid = await bcrypt.compare(
+            validatedData.currentPassword,
+            user.password
+        );
+
+        if (!isPasswordValid) {
+            return res.status(400).json({ error: 'Current password is incorrect' });
+        }
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(validatedData.newPassword, 10);
+
+        // Update password
+        user.password = hashedPassword;
+        await user.save();
+
+        res.json({
+            message: 'Password changed successfully',
+        });
+    } catch (error: any) {
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({ error: error.errors[0].message });
+        }
+        console.error('Change password error:', error);
+        res.status(500).json({ error: 'Failed to change password' });
+    }
+});
+
 
 /**
  * POST /api/auth/refresh
@@ -199,16 +338,16 @@ router.post('/refresh', async (req: Request, res: Response) => {
             return res.status(401).json({ error: 'User not found' });
         }
 
-        // Generate new access token
+        // Generate new access token with role
         const accessToken = jwt.sign(
-            { userId: user._id },
+            { userId: user._id, email: user.email, role: user.role },
             process.env.JWT_SECRET || 'default-secret',
             { expiresIn: '15m' }
         );
 
         // Optionally rotate refresh token (generate new one)
         const newRefreshToken = jwt.sign(
-            { userId: user._id },
+            { userId: user._id, email: user.email, role: user.role },
             process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET || 'default-refresh-secret',
             { expiresIn: '7d' }
         );

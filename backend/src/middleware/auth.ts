@@ -7,6 +7,8 @@ declare global {
         interface Request {
             user?: {
                 userId: string;
+                email: string;
+                role: 'admin' | 'user';
             };
         }
     }
@@ -16,6 +18,8 @@ declare global {
 export interface AuthRequest extends Request {
     user?: {
         userId: string;
+        email: string;
+        role: 'admin' | 'user';
     };
 }
 
@@ -35,7 +39,7 @@ export const protect = (
         const verified = jwt.verify(
             token,
             process.env.JWT_SECRET || 'default-secret'
-        ) as { userId: string };
+        ) as { userId: string; email: string; role: 'admin' | 'user' };
 
         (req as AuthRequest).user = verified;
         next();

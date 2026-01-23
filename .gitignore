@@ -45,3 +45,8 @@ Thumbs.db
 # Temporary files
 .temp/
 tmp/
+
+#agent
+.agent/
+
+PROJECT_DOCUMENTATION.md

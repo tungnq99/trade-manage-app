@@ -9,6 +9,7 @@ export interface User {
     email: string;
     firstName: string;
     lastName: string;
+    role: 'admin' | 'user';
     createdAt?: string;
     hasCompletedOnboarding?: boolean; // Track if user completed onboarding
 }
