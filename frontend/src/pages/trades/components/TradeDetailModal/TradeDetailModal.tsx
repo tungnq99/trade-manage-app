@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Trash2 } from 'lucide-react';
 import { TradeDetailModalProps } from './TradeDetailModal.types';
 import { useTranslation } from 'react-i18next';
+import { getStrategyVariation } from '@/helpers/strategy.helper';
 
 export function TradeDetailModal({ isOpen, onClose, onDelete, trade }: TradeDetailModalProps) {
     const { t } = useTranslation();
@@ -22,6 +23,8 @@ export function TradeDetailModal({ isOpen, onClose, onDelete, trade }: TradeDeta
         const date = new Date(dateStr);
         return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     };
+
+    const variation = getStrategyVariation(trade.setup, trade.direction);
 
     return (
         <BaseModal
@@ -49,7 +52,6 @@ export function TradeDetailModal({ isOpen, onClose, onDelete, trade }: TradeDeta
                         <Trash2 className="mr-2 h-4 w-4" />
                         {t('trades.buttons.delete')}
                     </Button>
-                    <div className="flex-1" />
                     <Button onClick={onClose}>{t('common.close')}</Button>
                 </>
             }
@@ -113,7 +115,17 @@ export function TradeDetailModal({ isOpen, onClose, onDelete, trade }: TradeDeta
                     <div>
                         <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">{t('trades.table.columns.setup')}</h4>
                         <div className="text-sm bg-muted/20 p-4 rounded-lg border border-border/30 leading-relaxed">
-                            {trade.setup}
+                            <strong>{trade.setup}</strong>
+                            {
+                                variation && (
+                                    <div className="space-y-1 mt-2 text-xs">
+                                        <p>1. CVD Trades: {variation.cvdTrades}</p>
+                                        <p>2. CVD Volume: {variation.cvdVolume}</p>
+                                        <p>3. Giá: {variation.priceAction}</p>
+                                        <p>4. Ý nghĩa: {variation.meaning}</p>
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
 

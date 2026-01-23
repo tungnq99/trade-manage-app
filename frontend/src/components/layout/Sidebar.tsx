@@ -34,7 +34,7 @@ export function Sidebar() {
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="fixed left-4 top-4 z-50 md:hidden"
+                    className="fixed left-4 top-4 z-50 xl:hidden"
                     onClick={() => setMobileMenuOpen(true)}
                 >
                     <Menu className="h-6 w-6" />
@@ -44,7 +44,7 @@ export function Sidebar() {
             {/* Overlay */}
             {mobileMenuOpen && (
                 <div
-                    className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+                    className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm xl:hidden"
                     onClick={() => setMobileMenuOpen(false)}
                 />
             )}
@@ -53,7 +53,7 @@ export function Sidebar() {
             <aside
                 className={cn(
                     'fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-border bg-background-sidebar transition-transform duration-300',
-                    'md:translate-x-0',
+                    'xl:translate-x-0',
                     mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
                 )}
             >
@@ -70,7 +70,7 @@ export function Sidebar() {
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="md:hidden"
+                        className="xl:hidden"
                         onClick={() => setMobileMenuOpen(false)}
                     >
                         <X className="h-5 w-5" />

@@ -12,13 +12,15 @@ export function TradeCard({ trade, onEdit, onDelete, onClick }: TradeCardProps) 
             onClick={() => onClick(trade)}
         >
             {/* Header: Symbol + Direction + Actions */}
-            <div className="flex items-start justify-between mb-3">
+            <div className="flex items-start justify-between">
                 <div className="flex items-center gap-2">
                     <span className="text-lg font-bold">{trade.symbol}</span>
+
                     <Badge variant={trade.direction === 'long' ? 'default' : 'destructive'} className="text-xs">
                         {t(`trades.status.${trade.direction}`).toUpperCase()}
                     </Badge>
                 </div>
+
                 <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
                     <Button
                         variant="ghost"
@@ -38,7 +40,7 @@ export function TradeCard({ trade, onEdit, onDelete, onClick }: TradeCardProps) 
                     </Button>
                 </div>
             </div>
-
+            <span className="mb-3 text-xs">{new Date(trade.entryDate).toLocaleDateString()}</span>
             {/* P/L - Most Important */}
             <div className="mb-3">
                 <div className={`text-2xl font-bold ${trade.profitLoss >= 0 ? 'text-success' : 'text-destructive'}`}>
@@ -64,9 +66,8 @@ export function TradeCard({ trade, onEdit, onDelete, onClick }: TradeCardProps) 
             </div>
 
             {/* Footer: Setup + Date */}
-            <div className="mt-3 pt-3 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground">
-                <span className="truncate flex-1">{trade.setup}</span>
-                <span className="ml-2">{new Date(trade.entryDate).toLocaleDateString()}</span>
+            <div className="mt-3 pt-3 text-xs text-muted-foreground">
+                <Badge variant="default" className="text-white">{trade.setup}</Badge>
             </div>
         </div>
     );

@@ -15,6 +15,8 @@ import { TradeFilters, TradeFiltersType } from './components/TradeFilters';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useCapitalStore } from '@/store/useCapitalStore';
 import { useTranslation } from 'react-i18next';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { getStrategyVariation } from '@/helpers/strategy.helper';
 
 export function TradesPage() {
     const { t } = useTranslation();
@@ -142,11 +144,28 @@ export function TradesPage() {
         },
         {
             header: t('trades.table.columns.setup'),
-            cell: (trade) => (
-                <Badge variant="default" className="text-xs">
-                    {trade.setup}
-                </Badge>
-            ),
+            cell: (trade) => {
+                const variation = getStrategyVariation(trade.setup, trade.direction);
+
+                return (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Badge variant="default" className="text-xs cursor-help">
+                                {trade.setup}
+                            </Badge>
+                        </TooltipTrigger>
+                        {variation && (
+                            <TooltipContent className="max-w-xs">
+                                <div className="space-y-1 text-xs">
+                                    <p><strong>CVD Trades:</strong> {variation.cvdTrades}</p>
+                                    <p><strong>CVD Volume:</strong> {variation.cvdVolume}</p>
+                                    <p><strong>Giá:</strong> {variation.priceAction}</p>
+                                </div>
+                            </TooltipContent>
+                        )}
+                    </Tooltip>
+                );
+            },
         },
         {
             header: t('trades.table.columns.actions'),
@@ -179,120 +198,122 @@ export function TradesPage() {
     ], [handleDeleteClick]);
 
     return (
-        <div className="container mx-auto py-6 space-y-6">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight">{t('trades.title')}</h1>
-                    <p className="text-muted-foreground">{t('trades.subtitle')}</p>
+        <TooltipProvider>
+            <div className="container mx-auto py-6 space-y-6">
+                {/* Header */}
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold tracking-tight">{t('trades.title')}</h1>
+                        <p className="text-muted-foreground">{t('trades.subtitle')}</p>
+                    </div>
+                    <Button onClick={() => setIsAddModalOpen(true)}>
+                        <Plus className="mr-2 h-4 w-4" />
+                        {t('trades.buttons.add')}
+                    </Button>
                 </div>
-                <Button onClick={() => setIsAddModalOpen(true)}>
-                    <Plus className="mr-2 h-4 w-4" />
-                    {t('trades.buttons.add')}
-                </Button>
-            </div>
 
-            {/* Filters */}
-            <TradeFilters
-                filters={filters}
-                onFiltersChange={setFilters}
-                onClearFilters={handleClearFilters}
-            />
+                {/* Filters */}
+                <TradeFilters
+                    filters={filters}
+                    onFiltersChange={setFilters}
+                    onClearFilters={handleClearFilters}
+                />
 
-            {/* Desktop Table View */}
-            <div className="hidden md:block">
-                <DataTable
-                    columns={columns}
-                    data={trades}
-                    loading={loading}
-                    onRowClick={(trade) => {
-                        setSelectedTrade(trade);
-                        setIsDetailModalOpen(true);
+                {/* Desktop Table View */}
+                <div className="hidden md:block">
+                    <DataTable
+                        columns={columns}
+                        data={trades}
+                        loading={loading}
+                        onRowClick={(trade) => {
+                            setSelectedTrade(trade);
+                            setIsDetailModalOpen(true);
+                        }}
+                    />
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="md:hidden space-y-4">
+                    {loading ? (
+                        <div className="text-center py-8 text-muted-foreground">Loading...</div>
+                    ) : trades.length === 0 ? (
+                        <div className="text-center py-8 text-muted-foreground">No trades found</div>
+                    ) : (
+                        trades.map((trade) => (
+                            <TradeCard
+                                key={trade._id}
+                                trade={trade}
+                                onEdit={(trade) => {
+                                    setSelectedTrade(trade);
+                                    setIsEditModalOpen(true);
+                                }}
+                                onDelete={handleDeleteClick}
+                                onClick={(trade) => {
+                                    setSelectedTrade(trade);
+                                    setIsDetailModalOpen(true);
+                                }}
+                            />
+                        ))
+                    )}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                    <Pagination
+                        currentPage={page}
+                        totalPages={totalPages}
+                        totalItems={totalItems}
+                        itemsPerPage={limit}
+                        onPageChange={setPage}
+                    />
+                )}
+
+                {/* Add/Edit/Detail Modals */}
+                <AddTradeModal
+                    isOpen={isAddModalOpen}
+                    onClose={() => setIsAddModalOpen(false)}
+                    onTradeAdded={() => {
+                        fetchTrades();
+                        fetchSummary(true); // Invalidate cache
                     }}
                 />
-            </div>
-
-            {/* Mobile Card View */}
-            <div className="md:hidden space-y-4">
-                {loading ? (
-                    <div className="text-center py-8 text-muted-foreground">Loading...</div>
-                ) : trades.length === 0 ? (
-                    <div className="text-center py-8 text-muted-foreground">No trades found</div>
-                ) : (
-                    trades.map((trade) => (
-                        <TradeCard
-                            key={trade._id}
-                            trade={trade}
-                            onEdit={(trade) => {
-                                setSelectedTrade(trade);
-                                setIsEditModalOpen(true);
-                            }}
-                            onDelete={handleDeleteClick}
-                            onClick={(trade) => {
-                                setSelectedTrade(trade);
-                                setIsDetailModalOpen(true);
-                            }}
-                        />
-                    ))
-                )}
-            </div>
-
-            {/* Pagination */}
-            {totalPages > 1 && (
-                <Pagination
-                    currentPage={page}
-                    totalPages={totalPages}
-                    totalItems={totalItems}
-                    itemsPerPage={limit}
-                    onPageChange={setPage}
+                <EditTradeModal
+                    isOpen={isEditModalOpen}
+                    onClose={() => {
+                        setIsEditModalOpen(false);
+                        setSelectedTrade(null);
+                    }}
+                    onTradeUpdated={() => {
+                        fetchTrades();
+                        fetchSummary(true); // Invalidate cache
+                    }}
+                    trade={selectedTrade!}
                 />
-            )}
+                <TradeDetailModal
+                    isOpen={isDetailModalOpen}
+                    onClose={() => {
+                        setIsDetailModalOpen(false);
+                        setSelectedTrade(null);
+                    }}
+                    onDelete={(trade) => {
+                        handleDeleteClick(trade);
+                    }}
+                    trade={selectedTrade}
+                />
 
-            {/* Add/Edit/Detail Modals */}
-            <AddTradeModal
-                isOpen={isAddModalOpen}
-                onClose={() => setIsAddModalOpen(false)}
-                onTradeAdded={() => {
-                    fetchTrades();
-                    fetchSummary(true); // Invalidate cache
-                }}
-            />
-            <EditTradeModal
-                isOpen={isEditModalOpen}
-                onClose={() => {
-                    setIsEditModalOpen(false);
-                    setSelectedTrade(null);
-                }}
-                onTradeUpdated={() => {
-                    fetchTrades();
-                    fetchSummary(true); // Invalidate cache
-                }}
-                trade={selectedTrade!}
-            />
-            <TradeDetailModal
-                isOpen={isDetailModalOpen}
-                onClose={() => {
-                    setIsDetailModalOpen(false);
-                    setSelectedTrade(null);
-                }}
-                onDelete={(trade) => {
-                    handleDeleteClick(trade);
-                }}
-                trade={selectedTrade}
-            />
-
-            {/* Delete Confirmation Dialog */}
-            <DeleteConfirmDialog
-                isOpen={isDeleteDialogOpen}
-                onClose={() => {
-                    setIsDeleteDialogOpen(false);
-                    setSelectedTrade(null);
-                }}
-                onConfirm={handleDeleteConfirm}
-                title={t('popup.deletePopup.confirmDelete')}
-                description={t('popup.deletePopup.confirmDeleteDesc', { symbol: selectedTrade?.symbol })}
-                loading={deleting}
-            />
-        </div>
+                {/* Delete Confirmation Dialog */}
+                <DeleteConfirmDialog
+                    isOpen={isDeleteDialogOpen}
+                    onClose={() => {
+                        setIsDeleteDialogOpen(false);
+                        setSelectedTrade(null);
+                    }}
+                    onConfirm={handleDeleteConfirm}
+                    title={t('popup.deletePopup.confirmDelete')}
+                    description={t('popup.deletePopup.confirmDeleteDesc', { symbol: selectedTrade?.symbol })}
+                    loading={deleting}
+                />
+            </div>
+        </TooltipProvider>
     );
 }

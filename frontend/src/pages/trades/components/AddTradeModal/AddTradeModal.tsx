@@ -9,6 +9,7 @@ import { calculatePips, calculateProfitLoss, detectSession, formatSymbol } from 
 import { toast } from 'sonner';
 import { AddTradeModalProps } from './AddTradeModal.types';
 import { useTranslation } from 'react-i18next';
+import { StrategyCombobox } from '@/components/common/StrategyCombobox';
 
 export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalProps) {
     const { t } = useTranslation();
@@ -279,10 +280,10 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
                 {/* Setup/Strategy */}
                 <div>
                     <label className="text-sm font-medium mb-2 block">{t('trades.popup.setup')}</label>
-                    <Input
-                        placeholder="Break of structure, Supply/Demand zone, etc."
+                    <StrategyCombobox
                         value={formData.setup || ''}
-                        onChange={(e) => handleChange('setup', e.target.value)}
+                        onChange={(value) => handleChange('setup', value)}
+                        placeholder="Chọn hoặc nhập chiến lược..."
                     />
                     {errors.setup && <p className="text-sm text-destructive mt-1">{errors.setup}</p>}
                 </div>
