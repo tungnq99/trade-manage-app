@@ -155,14 +155,22 @@ export const goldSetups: GoldSetup[] = [
     },
     {
         id: "7",
-        name: "KẸT GIÁ",
+        name: "Trôi/Cạn Kiệt",
         isTop3Reliable: false,
         variations: [
             {
                 trend: "Trung tính",
-                cvdTrades: "Đi ngang",
-                cvdVolume: "Đi ngang",
-                priceAction: "Đi ngang",
+                cvdTrades: "Có lực bán",
+                cvdVolume: "Có lực bán",
+                priceAction: "Giá Tăng",
+                meaning: "Không phe nào thắng",
+                action: "Không giao dịch"
+            },
+            {
+                trend: "Trung tính",
+                cvdTrades: "Có lực mua",
+                cvdVolume: "Có lực mua",
+                priceAction: "Giá Giảm",
                 meaning: "Không phe nào thắng",
                 action: "Không giao dịch"
             }

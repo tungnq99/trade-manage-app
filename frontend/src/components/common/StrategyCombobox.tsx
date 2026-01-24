@@ -2,22 +2,13 @@ import { useState, useRef, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { STRATEGIES } from '@/constants/trade.constants';
 
 interface StrategyComboboxProps {
     value: string;
     onChange: (value: string) => void;
     placeholder?: string;
 }
-
-const strategies = [
-    'QUÉT THANH KHOẢN',
-    'HẤP THỤ HỒI',
-    'CHẤP NHẬN GIÁ',
-    'ĐỠ / CHẶN GIÁ',
-    'ĐẨY ÂM',
-    'PHÁ GIẢ',
-    'KẸT GIÁ',
-];
 
 export function StrategyCombobox({ value, onChange, placeholder }: StrategyComboboxProps) {
     const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +21,7 @@ export function StrategyCombobox({ value, onChange, placeholder }: StrategyCombo
     }, [value]);
 
     // Filter strategies based on input
-    const filteredStrategies = strategies.filter((strategy) =>
+    const filteredStrategies = STRATEGIES.filter((strategy) =>
         strategy.toLowerCase().includes(inputValue.toLowerCase())
     );
 

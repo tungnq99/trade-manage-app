@@ -36,3 +36,13 @@ export const INSTRUMENT_TYPES = {
     COMMODITY: 'commodity',
     FOREX: 'forex'
 } as const;
+
+export const STRATEGIES = [
+    'QUÉT THANH KHOẢN',
+    'HẤP THỤ HỒI',
+    'CHẤP NHẬN GIÁ',
+    'ĐỠ / CHẶN GIÁ',
+    'ĐẨY ÂM',
+    'PHÁ GIẢ',
+    'TRÔI / CẠN KIỆT',
+];

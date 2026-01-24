@@ -66,7 +66,7 @@ const StrategiesPage = () => {
                             <TableRow key={`${setup.id}-${idx}`}>
                                 {idx === 0 && (
                                     <TableCell
-                                        className="font-semibold text-foreground text-xs border-r border-border"
+                                        className="font-semibold text-foreground text-xs border-r border-border uppercase"
                                         rowSpan={setup.variations.length}
                                     >
                                         {setup.name}

@@ -57,7 +57,7 @@ export function PerformanceKPICards({
             label: 'Vốn sở hữu',
             value: formatCurrency(initialBalance),
             icon: <DollarSign className="h-4 w-4" />,
-            colorClass: 'text-primary'
+            colorClass: 'dark:text-white'
         },
         {
             label: 'Số dư tài khoản',
@@ -71,19 +71,19 @@ export function PerformanceKPICards({
             label: 'Win Rate',
             value: formatPercent(winRate),
             icon: <Target className="h-4 w-4" />,
-            colorClass: 'text-primary'
+            colorClass: 'darktext-white'
         },
         {
             label: 'Profit Factor',
             value: profitFactor.toFixed(2),
             icon: <TrendingUp className="h-4 w-4" />,
-            colorClass: 'text-primary'
+            colorClass: 'darktext-white'
         },
         {
             label: 'Số lệnh',
             value: totalTrades,
             icon: <BarChart3 className="h-4 w-4" />,
-            colorClass: 'text-primary'
+            colorClass: 'darktext-white'
         },
         {
             label: 'Khoản lỗ trung bình',
@@ -95,13 +95,13 @@ export function PerformanceKPICards({
             label: 'RR Ratio',
             value: rrRatio.toFixed(2),
             icon: <Scale className="h-4 w-4" />,
-            colorClass: 'text-primary'
+            colorClass: 'darktext-white'
         },
         {
             label: 'Số lot',
             value: totalLots.toFixed(2),
             icon: <Package className="h-4 w-4" />,
-            colorClass: 'text-primary'
+            colorClass: 'darktext-white'
         }
     ];
 

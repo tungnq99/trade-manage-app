@@ -67,7 +67,7 @@ export function TradeCard({ trade, onEdit, onDelete, onClick }: TradeCardProps) 
 
             {/* Footer: Setup + Date */}
             <div className="mt-3 pt-3 text-xs text-muted-foreground">
-                <Badge variant="default" className="text-white">{trade.setup}</Badge>
+                <Badge variant="default" className="text-black dark:text-white">{trade.setup}</Badge>
             </div>
         </div>
     );

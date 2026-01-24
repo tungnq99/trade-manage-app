@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { BaseModal } from '@/components/common/BaseModal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Calendar, Clock } from 'lucide-react';
+import { DatePicker } from '@/components/common/DatePicker/DatePicker';
+import { TimePicker } from '@/components/common/TimePicker/TimePicker';
 import { createTradeSchema } from '@/schemas/trade.schema';
 import { tradeService } from '@/services/trade.service';
 import { calculatePips, calculateProfitLoss, detectSession, formatSymbol } from '@/helpers/trade.helper';
@@ -172,40 +173,20 @@ export function EditTradeModal({ isOpen, onClose, onTradeUpdated, trade }: EditT
                 <div className="grid grid-cols-3 gap-4">
                     <div>
                         <label className="text-sm font-medium mb-2 block">{t('trades.popup.entryDate')}</label>
-                        <div className="relative">
-                            <Input
-                                type="date"
-                                className="pr-10"
-                                value={formData.entryDate || ''}
-                                onChange={(e) => handleChange('entryDate', e.target.value)}
-                            />
-                            <Calendar
-                                className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground cursor-pointer hover:text-foreground"
-                                onClick={(e) => {
-                                    const input = e.currentTarget.previousElementSibling as HTMLInputElement;
-                                    if (input?.showPicker) input.showPicker(); else input?.focus();
-                                }}
-                            />
-                        </div>
+                        <DatePicker
+                            value={formData.entryDate || ''}
+                            onChange={(value) => handleChange('entryDate', value)}
+                            placeholder="Select entry date"
+                        />
                         {errors.entryDate && <p className="text-sm text-destructive mt-1">{errors.entryDate}</p>}
                     </div>
                     <div>
                         <label className="text-sm font-medium mb-2 block">{t('trades.popup.entryTime')}</label>
-                        <div className="relative">
-                            <Input
-                                type="time"
-                                className="pr-10"
-                                value={formData.entryTime || ''}
-                                onChange={(e) => handleChange('entryTime', e.target.value)}
-                            />
-                            <Clock
-                                className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground cursor-pointer hover:text-foreground"
-                                onClick={(e) => {
-                                    const input = e.currentTarget.previousElementSibling as HTMLInputElement;
-                                    if (input?.showPicker) input.showPicker(); else input?.focus();
-                                }}
-                            />
-                        </div>
+                        <TimePicker
+                            value={formData.entryTime || ''}
+                            onChange={(value) => handleChange('entryTime', value)}
+                            placeholder="Select entry time"
+                        />
                         {errors.entryTime && <p className="text-sm text-destructive mt-1">{errors.entryTime}</p>}
                     </div>
                     <div>
@@ -249,40 +230,20 @@ export function EditTradeModal({ isOpen, onClose, onTradeUpdated, trade }: EditT
                 <div className="grid grid-cols-3 gap-4">
                     <div>
                         <label className="text-sm font-medium mb-2 block">{t('trades.popup.exitDate')}</label>
-                        <div className="relative">
-                            <Input
-                                type="date"
-                                className="pr-10"
-                                value={formData.exitDate || ''}
-                                onChange={(e) => handleChange('exitDate', e.target.value)}
-                            />
-                            <Calendar
-                                className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground cursor-pointer hover:text-foreground"
-                                onClick={(e) => {
-                                    const input = e.currentTarget.previousElementSibling as HTMLInputElement;
-                                    if (input?.showPicker) input.showPicker(); else input?.focus();
-                                }}
-                            />
-                        </div>
+                        <DatePicker
+                            value={formData.exitDate || ''}
+                            onChange={(value) => handleChange('exitDate', value)}
+                            placeholder="Select exit date"
+                        />
                         {errors.exitDate && <p className="text-sm text-destructive mt-1">{errors.exitDate}</p>}
                     </div>
                     <div>
                         <label className="text-sm font-medium mb-2 block">{t('trades.popup.exitTime')}</label>
-                        <div className="relative">
-                            <Input
-                                type="time"
-                                className="pr-10"
-                                value={formData.exitTime || ''}
-                                onChange={(e) => handleChange('exitTime', e.target.value)}
-                            />
-                            <Clock
-                                className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground cursor-pointer hover:text-foreground"
-                                onClick={(e) => {
-                                    const input = e.currentTarget.previousElementSibling as HTMLInputElement;
-                                    if (input?.showPicker) input.showPicker(); else input?.focus();
-                                }}
-                            />
-                        </div>
+                        <TimePicker
+                            value={formData.exitTime || ''}
+                            onChange={(value) => handleChange('exitTime', value)}
+                            placeholder="Select exit time"
+                        />
                         {errors.exitTime && <p className="text-sm text-destructive mt-1">{errors.exitTime}</p>}
                     </div>
                     <div>
