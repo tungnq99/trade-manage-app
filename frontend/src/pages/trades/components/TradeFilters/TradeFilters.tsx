@@ -15,8 +15,8 @@ export function TradeFilters({ filters, onFiltersChange, onClearFilters }: Trade
         <div className="bg-card border border-border rounded-lg mb-6">
             {/* Header */}
             <div className="flex items-center justify-between p-4" >
-                <div className="flex items-center gap-2 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-                    <Filter className="h-4 w-4 text-muted-foreground" />
+                <div className="flex items-center gap-2 cursor-pointer hover:text-primary" onClick={() => setIsOpen(!isOpen)}>
+                    <Filter className="h-4 w-4 text-muted-foreground hover:text-primary" />
                     <h3 className="font-semibold text-sm">{t('trades.buttons.filter')}</h3>
                     {hasActiveFilters && (
                         <Badge variant="default" className="ml-2 h-5 text-[10px]">

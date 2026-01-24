@@ -202,8 +202,19 @@ export function EditTradeModal({ isOpen, onClose, onTradeUpdated, trade }: EditT
                     </div>
                 </div>
 
-                {/* TP & SL */}
-                <div className="grid grid-cols-2 gap-4">
+                {/* LotSize, TP & SL */}
+                <div className="grid grid-cols-3 gap-4">
+                    <div>
+                        <label className="text-sm font-medium mb-2 block">{t('trades.popup.lotSize')}</label>
+                        <Input
+                            type="text"
+                            inputMode="decimal"
+                            placeholder="0.10"
+                            value={formData.lotSize || ''}
+                            onChange={(e) => handleChange('lotSize', e.target.value)}
+                        />
+                        {errors.lotSize && <p className="text-sm text-destructive mt-1">{errors.lotSize}</p>}
+                    </div>
                     <div>
                         <label className="text-sm font-medium mb-2 block">{t('trades.popup.takeProfit')}</label>
                         <Input
@@ -257,19 +268,6 @@ export function EditTradeModal({ isOpen, onClose, onTradeUpdated, trade }: EditT
                         />
                         {errors.exitPrice && <p className="text-sm text-destructive mt-1">{errors.exitPrice}</p>}
                     </div>
-                </div>
-
-                {/* Lot Size */}
-                <div>
-                    <label className="text-sm font-medium mb-2 block">{t('trades.popup.lotSize')}</label>
-                    <Input
-                        type="text"
-                        inputMode="decimal"
-                        placeholder="0.10"
-                        value={formData.lotSize || ''}
-                        onChange={(e) => handleChange('lotSize', e.target.value)}
-                    />
-                    {errors.lotSize && <p className="text-sm text-destructive mt-1">{errors.lotSize}</p>}
                 </div>
 
                 {/* Setup/Strategy */}

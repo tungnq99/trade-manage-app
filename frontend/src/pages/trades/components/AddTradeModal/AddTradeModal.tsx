@@ -12,9 +12,11 @@ import { AddTradeModalProps } from './AddTradeModal.types';
 import { useTranslation } from 'react-i18next';
 import { StrategyCombobox } from '@/components/common/StrategyCombobox';
 import { format } from 'date-fns';
+import { useCapitalStore } from '@/store';
 
 export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalProps) {
     const { t } = useTranslation();
+    const { summary } = useCapitalStore();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState<Partial<CreateTradeFormData>>({
         direction: 'long',
@@ -44,7 +46,6 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
 
             // Validate
             const validated = createTradeSchema.parse(formData);
-
             // Auto-calculate fields
             const symbol = formatSymbol(validated.symbol);
             const pips = calculatePips(symbol, validated.entryPrice, validated.exitPrice, validated.direction);
@@ -52,7 +53,7 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
             const session = detectSession(validated.entryTime);
 
             // Assume initial account balance (này sẽ lấy từ Capital settings sau, hardcode tạm 10000)
-            const accountBalance = 10000;
+            const accountBalance = summary?.initialBalance || 1000;
             const profitLossPercent = (profitLoss / accountBalance) * 100;
 
             // Create trade
@@ -63,17 +64,19 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
                 profitLoss,
                 profitLossPercent,
                 session,
+
             });
 
             toast.success(t('trades.messages.addSuccess'));
             onTradeAdded();
             onClose();
             // Reset form
-            setFormData({ direction: 'long' });
+            setFormData({ direction: 'long', entryDate: format(new Date(), 'yyyy-MM-dd'), entryTime: '00:00', exitDate: format(new Date(), 'yyyy-MM-dd'), exitTime: '00:00', });
         } catch (error: any) {
             if (error.errors) {
                 // Zod validation errors
                 const fieldErrors: Record<string, string> = {};
+                console.log(error.errors);
                 error.errors.forEach((err: any) => {
                     if (err.path) {
                         fieldErrors[err.path[0]] = err.message;
@@ -173,8 +176,19 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
                     </div>
                 </div>
 
-                {/* TP & SL */}
-                <div className="grid grid-cols-2 gap-4">
+                {/* LotSize, TP & SL */}
+                <div className="grid grid-cols-3 gap-4">
+                    <div>
+                        <label className="text-sm font-medium mb-2 block">{t('trades.popup.lotSize')}</label>
+                        <Input
+                            type="text"
+                            inputMode="decimal"
+                            placeholder="0.10"
+                            value={formData.lotSize || ''}
+                            onChange={(e) => handleChange('lotSize', e.target.value)}
+                        />
+                        {errors.lotSize && <p className="text-sm text-destructive mt-1">{errors.lotSize}</p>}
+                    </div>
                     <div>
                         <label className="text-sm font-medium mb-2 block">{t('trades.popup.takeProfit')}</label>
                         <Input
@@ -184,6 +198,7 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
                             value={formData.tp || ''}
                             onChange={(e) => handleChange('tp', e.target.value)}
                         />
+                        {errors.tp && <p className="text-sm text-destructive mt-1">{errors.tp}</p>}
                     </div>
                     <div>
                         <label className="text-sm font-medium mb-2 block">{t('trades.popup.stopLoss')}</label>
@@ -194,6 +209,7 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
                             value={formData.sl || ''}
                             onChange={(e) => handleChange('sl', e.target.value)}
                         />
+                        {errors.sl && <p className="text-sm text-destructive mt-1">{errors.sl}</p>}
                     </div>
                 </div>
 
@@ -228,19 +244,6 @@ export function AddTradeModal({ isOpen, onClose, onTradeAdded }: AddTradeModalPr
                         />
                         {errors.exitPrice && <p className="text-sm text-destructive mt-1">{errors.exitPrice}</p>}
                     </div>
-                </div>
-
-                {/* Lot Size */}
-                <div>
-                    <label className="text-sm font-medium mb-2 block">{t('trades.popup.lotSize')}</label>
-                    <Input
-                        type="text"
-                        inputMode="decimal"
-                        placeholder="0.10"
-                        value={formData.lotSize || ''}
-                        onChange={(e) => handleChange('lotSize', e.target.value)}
-                    />
-                    {errors.lotSize && <p className="text-sm text-destructive mt-1">{errors.lotSize}</p>}
                 </div>
 
                 {/* Setup/Strategy */}

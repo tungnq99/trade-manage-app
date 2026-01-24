@@ -203,8 +203,8 @@ export function TradesPage() {
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-xl md:text-3xl  font-bold tracking-tight">{t('trades.title')}</h1>
-                        <p className="text-md md:text-lg text-muted-foreground">{t('trades.subtitle')}</p>
+                        <h1 className="text-lg md:text-3xl  font-bold tracking-tight">{t('trades.title')}</h1>
+                        <p className="text-xs md:text-lg text-muted-foreground">{t('trades.subtitle')}</p>
                     </div>
                     <Button variant="default" onClick={() => setIsAddModalOpen(true)}>
                         <Plus className="mr-2 h-4 w-4" />

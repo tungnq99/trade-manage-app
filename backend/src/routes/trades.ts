@@ -22,6 +22,8 @@ const tradeSchema = z.object({
     notes: z.string().optional(),
     screenshot: z.string().optional(),
     session: z.enum(['asian', 'london', 'newyork', 'overlap']),
+    tp: z.number().positive(),
+    sl: z.number().positive(),
     // Calculated fields (can be provided by FE or calc by BE, here we require them for simplicity in Sprint 1)
     pips: z.number(),
     profitLoss: z.number(),

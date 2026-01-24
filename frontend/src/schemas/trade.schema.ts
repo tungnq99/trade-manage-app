@@ -17,11 +17,16 @@ export const createTradeSchema = z.object({
         .min(1, 'Exit time is required')
         .regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Invalid time format (HH:mm)'),
     exitPrice: z.coerce.number().positive('Exit price must be positive'),
-    tp: z.coerce.number().optional(),
-    sl: z.coerce.number().optional(),
+    tp: z.coerce.number().min(1, 'TP is required'),
+    sl: z.coerce.number().min(1, 'SL is required'),
     setup: z.string().min(1, 'Setup/Strategy is required'),
     notes: z.string().optional(),
-    screenshot: z.string().optional(),
+}).refine((data) => data.direction == 'long' && data.tp > data.entryPrice || data.direction == 'short' && data.tp < data.entryPrice, {
+    message: 'TP phải lớn hơn giá vào lệnh đối với lệnh mua và nhỏ hơn giá vào lệnh đối với lệnh bán',
+    path: ['tp'],
+}).refine((data) => data.direction == 'long' && data.sl < data.entryPrice || data.direction == 'short' && data.sl > data.entryPrice, {
+    message: 'SL phải nhỏ hơn giá vào lệnh đối với lệnh mua và lớn hơn giá vào lệnh đối với lệnh bán',
+    path: ['sl'],
 });
 
 export type CreateTradeFormData = z.infer<typeof createTradeSchema>;
