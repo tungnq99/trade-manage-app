@@ -154,15 +154,14 @@ export function TradesPage() {
                                 {trade.setup}
                             </Badge>
                         </TooltipTrigger>
-                        {variation && (
-                            <TooltipContent className="max-w-xs">
-                                <div className="space-y-1 text-xs">
-                                    <p><strong>CVD Trades:</strong> {variation.cvdTrades}</p>
-                                    <p><strong>CVD Volume:</strong> {variation.cvdVolume}</p>
-                                    <p><strong>Giá:</strong> {variation.priceAction}</p>
-                                </div>
-                            </TooltipContent>
-                        )}
+                        <TooltipContent className="max-w-xs">
+                            {variation && <div className="space-y-1 text-xs">
+                                <p><strong>CVD Trades:</strong> {variation.cvdTrades}</p>
+                                <p><strong>CVD Volume:</strong> {variation.cvdVolume}</p>
+                                <p><strong>Giá:</strong> {variation.priceAction}</p>
+                            </div>}
+                            {trade.notes && <p><strong>Notes:</strong> {trade.notes}</p>}
+                        </TooltipContent>
                     </Tooltip>
                 );
             },

@@ -126,18 +126,12 @@ export function TradeDetailModal({ isOpen, onClose, onDelete, trade }: TradeDeta
                                     </div>
                                 )
                             }
+                            {trade.notes && <div className='mt-2'>
+                                <strong>Notes</strong>
+                                <p>{trade.notes}</p>
+                            </div>}
                         </div>
                     </div>
-
-                    {/* Notes */}
-                    {trade.notes && (
-                        <div>
-                            <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">{t('trades.popup.notes')}</h4>
-                            <div className="text-sm bg-muted/20 p-4 rounded-lg border border-border/30 leading-relaxed">
-                                {trade.notes}
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
         </BaseModal>
