@@ -55,8 +55,8 @@ apiClient.interceptors.response.use(
             error.config?.url?.includes('/api/auth/register') ||
             error.config?.url?.includes('/api/auth/refresh');
 
-        // Nếu lỗi 401 và không phải auth route
-        if (error.response?.status === 401 && !isAuthRoute && !originalRequest._retry) {
+        // Nếu lỗi 401 hoặc 403 và không phải auth route
+        if ((error.response?.status === 401 || error.response?.status === 403) && !isAuthRoute && !originalRequest._retry) {
             // Nếu đang refresh, queue request này
             if (isRefreshing) {
                 return new Promise((resolve, reject) => {
