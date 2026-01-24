@@ -16,7 +16,7 @@ export function TradeCard({ trade, onEdit, onDelete, onClick }: TradeCardProps) 
                 <div className="flex items-center gap-2">
                     <span className="text-lg font-bold">{trade.symbol}</span>
 
-                    <Badge variant={trade.direction === 'long' ? 'default' : 'destructive'} className="text-xs">
+                    <Badge variant={trade.direction === 'long' ? 'success' : 'destructive'} className="text-xs">
                         {t(`trades.status.${trade.direction}`).toUpperCase()}
                     </Badge>
                 </div>
