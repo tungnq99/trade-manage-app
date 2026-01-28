@@ -3,10 +3,11 @@ import { SYMBOLS, PIP_VALUES, DOLLARS_PER_PIP, SESSION_TIME, INSTRUMENT_TYPES } 
 /**
  * Detect instrument type
  */
-const getInstrumentType = (symbol: string): 'forex' | 'gold' | 'commodity' => {
+const getInstrumentType = (symbol: string): 'forex' | 'gold' | 'commodity' | 'cash' => {
     const upper = symbol.toUpperCase();
     if (upper.includes(SYMBOLS.GOLD) || upper.includes(SYMBOLS.AlsoGOLD)) return INSTRUMENT_TYPES.GOLD;
     if (upper.includes(SYMBOLS.SILVER) || upper.includes(SYMBOLS.OIL) || upper.includes(SYMBOLS.BTC)) return INSTRUMENT_TYPES.COMMODITY;
+    if (upper.includes(SYMBOLS.SP500)) return INSTRUMENT_TYPES.CASH;
     return INSTRUMENT_TYPES.FOREX;
 };
 
@@ -22,7 +23,7 @@ export const getPipValue = (symbol: string): number => {
 
     if (type === INSTRUMENT_TYPES.GOLD) return PIP_VALUES.GOLD;
     if (type === INSTRUMENT_TYPES.COMMODITY) return PIP_VALUES.COMMODITY;
-
+    if (type === INSTRUMENT_TYPES.CASH) return PIP_VALUES.CASH;
     // Forex
     return symbol.includes(SYMBOLS.JPY) ? PIP_VALUES.FOREX_JPY : PIP_VALUES.FOREX_STD;
 };

@@ -16,6 +16,7 @@ export const COMMON_PAIRS = [
     'GBPJPY',
     'XAUUSD',
     'BTCUSD',
+    "SP500"
 ] as const;
 
 export type TradingSymbol = typeof COMMON_PAIRS[number];
@@ -29,5 +30,5 @@ export const STANDARD_PIP_VALUE = 10;
  * Pip size calculation
  */
 export const getPipSize = (symbol: string): number => {
-    return symbol.includes('XAU') ? 0.1 : symbol.includes('JPY') ? 0.01 : 0.0001;
+    return symbol.includes('SP500') ? 10 : symbol.includes('XAU') ? 0.1 : symbol.includes('JPY') ? 0.01 : 0.0001;
 };
